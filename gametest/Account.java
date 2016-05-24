@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -13,12 +14,15 @@ import javax.persistence.Table;
  */
 
 @Entity
+@NamedQuery (query = "Select user from Account user", name = "Show all users")
+
 @Table
 public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userid;
-
+	
+//hej
 	private String user;
 	private String password;
 

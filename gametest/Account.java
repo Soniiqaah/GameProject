@@ -22,8 +22,7 @@ public class Account {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userid;
 	
-//hej
-	private String user;
+	private String username;
 	private String password;
 
 	// Empty Constructor
@@ -33,17 +32,17 @@ public class Account {
 	}
 
 	public Account(String user, String password) {
-		this.user = user;
+		this.username = username;
 		this.password = password;
 
 	}
 
 	public String getUser() {
-		return user;
+		return username;
 	}
 
 	public void setUser(String user) {
-		this.user = user;
+		this.username = user;
 	}
 
 	public String getPassword() {

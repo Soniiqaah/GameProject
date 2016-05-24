@@ -31,20 +31,10 @@ public class GameLevel {
 		this.points = points;
 	}
 
-	/**
-	 * 
-	 * @return a String with the user's name
-	 */
+	
 	public int getNumOfTryOuts() {
 		return numOfTryOuts;
 	}
-
-	/**
-	 * Sets the user's name
-	 * 
-	 * @param -
-	 *            a String with the user's name
-	 */
 
 	public void setNumOfTryOuts() {
 

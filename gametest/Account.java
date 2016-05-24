@@ -36,7 +36,7 @@ public class Account {
 	 * @param password
 	 */
 
-	public Account(String user, String password) {
+	public Account(String username, String password) {
 		this.username = username;
 		this.password = password;
 

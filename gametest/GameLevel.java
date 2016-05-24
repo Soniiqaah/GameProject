@@ -18,6 +18,10 @@ public class GameLevel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	private int levelid;
+	/**
+	 * instanse variables
+	 */
 
 	private int numOfTryOuts;
 	private int points;
@@ -25,13 +29,21 @@ public class GameLevel {
 	public GameLevel() {
 
 	}
-
+/**
+ * 
+ * @param numOfTryOuts
+ * @param points
+ */
 	public GameLevel(int numOfTryOuts, int points) {
 		this.numOfTryOuts = numOfTryOuts;
 		this.points = points;
 	}
-
 	
+/**
+ * 
+ * @return
+ */
+
 	public int getNumOfTryOuts() {
 		return numOfTryOuts;
 	}

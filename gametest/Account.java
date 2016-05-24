@@ -30,12 +30,21 @@ public class Account {
 	public Account() {
 
 	}
+	/**
+	 * 
+	 * @param user
+	 * @param password
+	 */
 
 	public Account(String user, String password) {
 		this.username = username;
 		this.password = password;
 
 	}
+	/**
+	 * 
+	 * @return
+	 */
 
 	public String getUser() {
 		return username;

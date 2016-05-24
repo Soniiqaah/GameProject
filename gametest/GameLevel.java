@@ -20,7 +20,7 @@ public class GameLevel {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int levelid;
 	/**
-	 * instanse variables
+	 * instance variables
 	 */
 
 	private int numOfTryOuts;

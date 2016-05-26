@@ -1,11 +1,13 @@
-package gametest;
+package entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
 
 /**
  * 
@@ -14,8 +16,10 @@ import javax.persistence.Table;
  */
 
 @Entity
-@NamedQuery (query = "Select user from Account user", name = "Show all users")
-
+@NamedQueries({
+@NamedQuery(query = "Select user from Account user", name = "Show all users"),
+@NamedQuery(query = "Select user from Account user where user.username = :uname", name ="Checking if username is avaible"),
+})
 @Table
 public class Account {
 	@Id

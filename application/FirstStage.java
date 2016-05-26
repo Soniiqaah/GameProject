@@ -21,10 +21,10 @@ public class FirstStage extends Application {
 	double xcoor;
 	double ycoor;
 	Ball ball;
-	double clickedXCoord; //måste kommas åt i eventhandlern
+	double clickedXCoord; // måste kommas åt i eventhandlern
 	double clickedYCoord;
-	int startXCoord;
-	int startYCoord;
+	double startXCoord;
+	double startYCoord;
 	double distanceX;
 	double distanceY;
 
@@ -34,33 +34,41 @@ public class FirstStage extends Application {
 		Path path = new Path();
 		int playingfieldWidth; // ska man ha int eller double? TODO
 		int playingfieldHeight;
+		PlayingField playingField = new PlayingField();
 		double distance;
 
 		// private void getClickedCoords(Event event) {
-		// } 
-		// TODO funktion för detta 
+		// }
+		// TODO funktion för detta
 
-		Scene scene = new Scene(pane, 450, 550);
+		Scene scene = new Scene(playingField, 450, 550);
 
-		playingfieldWidth = (int) pane.getWidth();
-		playingfieldHeight = (int) pane.getHeight();
-//		createStartPoint();
+		// playingfieldWidth = (int) pane.getWidth();//TODO
+		// playingfieldHeight = (int) pane.getHeight();//TODO
+		// createStartPoint();
 
-		pane.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+		playingField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			// vid klick: bollen rullar i given riktning med en fart som
 			// bestämts av avståndet mellan startpunkten och klickpunkten
-			// vid klick: boll uppstår på startpunkten och rör sig mot klicket
 			clickedXCoord = event.getX();
 			clickedYCoord = event.getY();
-			startXCoord = playingfieldWidth / 2;
-			startYCoord = playingfieldHeight - 25; // TODO kunna ange storlek på boll
+			startXCoord = playingField.getWidth() / 2;
+			startYCoord = playingField.getHeight() - 25; // TODO kunna ange
+															// storlek på
+															// boll/göra om till
+															// en konstant
 
 			distanceX = clickedXCoord - startXCoord;
 			distanceY = clickedYCoord - startYCoord;
 
 			ball = new Ball(startXCoord, startYCoord, 20, Color.CHARTREUSE,
-					playingfieldWidth, playingfieldHeight, distanceX/20, distanceY/20);
-			pane.getChildren().add(ball);
+					playingField, distanceX / 20 * 1.5, distanceY / 20 * 1.5); // gångerfaktor
+																				// för
+																				// att
+																				// höja
+																				// hastighet
+																				// TODO
+			playingField.getChildren().add(ball);
 			ball.animateBallMovement();
 
 			// getClickedCoords(event);
@@ -68,18 +76,18 @@ public class FirstStage extends Application {
 
 		// förberedelse för att kunna ha olika storlekar på spelplanen
 
-//		private void createStartPoint(int startXCoord, int startYCoord) {
-//			MoveTo moveTo = new MoveTo();
-//			moveTo.setX(startXCoord);
-//			moveTo.setY(startYCoord);
-//			LineTo line1 = new LineTo(startXCoord + 5, startYCoord);
-//			LineTo line2 = new LineTo(startXCoord, startYCoord - 8);
-//			LineTo line3 = new LineTo(startXCoord - 5, startYCoord);
-//			LineTo line4 = new LineTo(startXCoord, startYCoord);
-//			path.getElements().addAll(moveTo, line1, line2, line3, line4);
-//			pane.getChildren().add(path);
-//		}
-		
+		// private void createStartPoint(int startXCoord, int startYCoord) {
+		// MoveTo moveTo = new MoveTo();
+		// moveTo.setX(startXCoord);
+		// moveTo.setY(startYCoord);
+		// LineTo line1 = new LineTo(startXCoord + 5, startYCoord);
+		// LineTo line2 = new LineTo(startXCoord, startYCoord - 8);
+		// LineTo line3 = new LineTo(startXCoord - 5, startYCoord);
+		// LineTo line4 = new LineTo(startXCoord, startYCoord);
+		// path.getElements().addAll(moveTo, line1, line2, line3, line4);
+		// pane.getChildren().add(path);
+		// }
+
 		distance = Math.sqrt(Math.pow((clickedXCoord - startXCoord), 2)
 				+ (Math.pow((clickedYCoord - startYCoord), 2)));
 		primaryStage.setTitle("stage 11 working");

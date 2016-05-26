@@ -21,7 +21,7 @@ public class FirstStage extends Application {
 	double xcoor;
 	double ycoor;
 	Ball ball;
-	double clickedXCoord; // måste kommas åt i eventhandlern
+	double clickedXCoord; // globa för att kommas åt i eventhandlern TODO
 	double clickedYCoord;
 	double startXCoord;
 	double startYCoord;
@@ -45,18 +45,23 @@ public class FirstStage extends Application {
 
 		// playingfieldWidth = (int) pane.getWidth();//TODO
 		// playingfieldHeight = (int) pane.getHeight();//TODO
-		// createStartPoint();
+		startXCoord = playingField.getWidth() / 2;
+		startYCoord = playingField.getHeight() - 25; // TODO kunna ange
+														// storlek på
+														// boll/göra om till
+														// en konstant
+//		 createStartPoint(startXCoord, startYCoord);
 
 		playingField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			// vid klick: bollen rullar i given riktning med en fart som
 			// bestämts av avståndet mellan startpunkten och klickpunkten
 			clickedXCoord = event.getX();
 			clickedYCoord = event.getY();
-			startXCoord = playingField.getWidth() / 2;
-			startYCoord = playingField.getHeight() - 25; // TODO kunna ange
-															// storlek på
-															// boll/göra om till
-															// en konstant
+//			startXCoord = playingField.getWidth() / 2;
+//			startYCoord = playingField.getHeight() - 25; // TODO kunna ange
+//															// storlek på
+//															// boll/göra om till
+//															// en konstant
 
 			distanceX = clickedXCoord - startXCoord;
 			distanceY = clickedYCoord - startYCoord;
@@ -70,27 +75,25 @@ public class FirstStage extends Application {
 																				// TODO
 			playingField.getChildren().add(ball);
 			ball.animateBallMovement();
-
-			// getClickedCoords(event);
 		});
 
 		// förberedelse för att kunna ha olika storlekar på spelplanen
 
-		// private void createStartPoint(int startXCoord, int startYCoord) {
-		// MoveTo moveTo = new MoveTo();
-		// moveTo.setX(startXCoord);
-		// moveTo.setY(startYCoord);
-		// LineTo line1 = new LineTo(startXCoord + 5, startYCoord);
-		// LineTo line2 = new LineTo(startXCoord, startYCoord - 8);
-		// LineTo line3 = new LineTo(startXCoord - 5, startYCoord);
-		// LineTo line4 = new LineTo(startXCoord, startYCoord);
-		// path.getElements().addAll(moveTo, line1, line2, line3, line4);
-		// pane.getChildren().add(path);
-		// }
-
+//		 private void createStartPoint(int startXCoord, int startYCoord) {
+//		 MoveTo moveTo = new MoveTo();
+//		 moveTo.setX(startXCoord);
+//		 moveTo.setY(startYCoord);
+//		 LineTo line1 = new LineTo(startXCoord + 5, startYCoord);
+//		 LineTo line2 = new LineTo(startXCoord, startYCoord - 8);
+//		 LineTo line3 = new LineTo(startXCoord - 5, startYCoord);
+//		 LineTo line4 = new LineTo(startXCoord, startYCoord);
+//		 path.getElements().addAll(moveTo, line1, line2, line3, line4);
+//		 pane.getChildren().add(path);
+//		 }
+//
 		distance = Math.sqrt(Math.pow((clickedXCoord - startXCoord), 2)
 				+ (Math.pow((clickedYCoord - startYCoord), 2)));
-		primaryStage.setTitle("stage 11 working");
+		primaryStage.setTitle("stage 13 working");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 

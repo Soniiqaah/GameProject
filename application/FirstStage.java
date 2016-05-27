@@ -58,12 +58,12 @@ public class FirstStage extends Application {
 		pane.setLeft(playingField);
 		playingField.setSize(playingFieldWidth, playingFieldHeight);
 		playingField.setStyle("-fx-border-color: yellow");
-//		playingField.setStyle("-fx-overflow: hidden");
 		startXCoord = playingFieldWidth / 2;
 		startYCoord = playingFieldHeight - ballRadius; // TODO kunna ange
 														// storlek på
 														// boll/göra om till
 														// en konstant
+		// läggas i playingfield? TODO
 		 MoveTo moveTo = new MoveTo();
 		 moveTo.setX(startMarkX);
 		 moveTo.setY(startMarkY);

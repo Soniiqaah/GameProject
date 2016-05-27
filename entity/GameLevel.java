@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
@@ -14,7 +15,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-@NamedQuery(query = "", name = "")
+//@NamedQuery(query = "", name = "")
 @Table
 public class GameLevel {
 
@@ -27,6 +28,9 @@ public class GameLevel {
 
 	private int numOfTryOuts;
 	private int points;
+	
+	@ManyToOne
+	private GameLevel gamelevel;
 
 	public GameLevel() {
 
@@ -34,11 +38,11 @@ public class GameLevel {
 /**
  * 
  * @param numOfTryOuts
- * @param points
  */
 	public GameLevel(int numOfTryOuts, int points) {
 		this.numOfTryOuts = numOfTryOuts;
 		this.points = points;
+	
 	}
 	
 /**
@@ -53,11 +57,12 @@ public class GameLevel {
 	public void setNumOfTryOuts() {
 
 	}
-
 	public int getPoints() {
 		return points;
 	}
 
 	public void setPoints(String points) {
+
 	}
+
 }

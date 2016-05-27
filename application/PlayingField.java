@@ -3,8 +3,6 @@ package application;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.scene.PointLight;
-
 //import org.eclipse.persistence.descriptors.SelectedFieldsLockingPolicy;
 
 import javafx.scene.layout.Pane;
@@ -16,20 +14,26 @@ import javafx.scene.shape.Rectangle;
  * 
  * @author Jannike
  *
- * A class that represents the playingfield of the game and its functions
+ *         A class that represents the playingfield of the game and includes its
+ *         functions
  */
 public class PlayingField extends Pane {
 
 	int playingfieldWidth; // ska man ha int eller double? TODO
 	int playingfieldHeight;
+	List<Circle> zoneList; // kan man lösa det på annat sätt än med globala
+							// variabler? TODO
+	List<Integer> pointsList;
+	List<Integer> resultList;
+	public int zoneID;
 
 	/**
 	 * TODO ordval, grammatik? protected?
 	 * 
 	 * setSize(int xSize, int ySize)
 	 * 
-	 * Sets the size of the playingfield and masks anything on the outside of
-	 * the border
+	 * Sets the size of the playingfield and crops anything on the outside of
+	 * the field
 	 * 
 	 * @param xSize
 	 *            - int that specifies the width of the field
@@ -51,26 +55,31 @@ public class PlayingField extends Pane {
 	 * The zones that gives points are declared, defined and added to the
 	 * playingfield in this method
 	 * 
-	 * TODO Map för att papa ihop poäng med zon?
+	 * TODO Map för att para ihop poäng med zon?
 	 */
 	protected void placingZones() {
-		List<Circle> zoneList = new ArrayList<Circle>();
-		List<Integer> pointsList = new ArrayList<Integer>();
+		zoneList = new ArrayList<Circle>();
+		pointsList = new ArrayList<Integer>();
 		zoneList.add(new Circle(0, 0, 60));
-		zoneList.add(new Circle(playingfieldWidth, 0, 60));
-		zoneList.add(new Circle(playingfieldWidth / 2, playingfieldHeight / 4, 10));
-		zoneList.add(new Circle(playingfieldWidth / 3, playingfieldHeight * 5 / 8, 30));
-		zoneList.add(new Circle(playingfieldWidth * 2 / 3, playingfieldHeight * 5 / 8, 30));
-		zoneList.add(new Circle(0, playingfieldHeight, 50));
-		zoneList.add(new Circle(playingfieldWidth, playingfieldHeight, 50));
+		zoneList.add(new Circle(playingfieldWidth, 0, 50));
+		zoneList.add(new Circle(playingfieldWidth / 2, playingfieldHeight / 4, 5));
+		zoneList.add(new Circle(playingfieldWidth / 4, playingfieldHeight * 5 / 8, 10));
+		zoneList.add(new Circle(playingfieldWidth / 2, playingfieldHeight * 5 / 8, 20));
+		zoneList.add(new Circle(playingfieldWidth * 3 / 4, playingfieldHeight * 5 / 8, 15));
+		zoneList.add(new Circle(0, playingfieldHeight, 40));
+		zoneList.add(new Circle(playingfieldWidth, playingfieldHeight, 30));
 		int i = 0;
 		for (Circle zone : zoneList) {
 			pointsList.add(setPoints(zone.getRadius()));
 			zone.setFill(setColor(pointsList.get(i)));// TODO kan det göras
 														// snyggare?
+			zone.setStroke(Color.DARKGREY);
 			i++;
 			this.getChildren().add(zone);
 		}
+		// for (int j : pointsList) {
+		// System.out.println("j: " + j);
+		// }
 	}
 
 	/**
@@ -139,10 +148,30 @@ public class PlayingField extends Pane {
 			break;
 		case 50:
 			colorName = Color.web("Orchid"); // #DA70D6;
+			break; // break saknades i tidigare version av koden så radie = 5
+					// gav svart zon TODO
 		default:
 			colorName = Color.web("Black");
 		}
 		return colorName;
 	}
 
+	public void checkInZone(Ball ball) {
+		zoneID = -1;
+		// for (Circle zone : zoneList)
+		for (int k = 0; k < zoneList.size(); k++) {
+			ball.inAZone(zoneList.get(k));
+			if (ball.isInAZone) {
+				zoneID = k;
+			}
+		}
+	}
+
+	// för varje kast anropas checkinZone, zonID registreras, mha zonID:t letar
+	// man upp poängen i pointList, summerar efter varje kast och skriver ut på
+	// skärmen. När alla bollar är kastade ska resultatet skrivas ut på skärmen
+	
+	// skapa ny klass för användare?
+//	private List<Integer> collectResult()resultList
+	
 }

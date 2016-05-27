@@ -15,7 +15,6 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 /**
  * 
@@ -44,16 +43,10 @@ public class FirstStage extends Application {
 		BorderPane pane = new BorderPane();
 		Path path = new Path();
 		PlayingField playingField = new PlayingField();
-		double distance;
-
-		// private void getClickedCoords(Event event) {
-		// }
-		// TODO funktion för detta
 
 		Scene scene = new Scene(pane, 600, 680);
 		// dummy-kod för att få fason på scenen så länge
 		Button topButton = new Button("Toppknapp");
-		Button leftButton = new Button("Vänsterknapp");
 		Button rightButton = new Button("Högerknapp");
 		Button bottomButton = new Button("Bottenknapp");
 		pane.setTop(topButton);
@@ -62,11 +55,12 @@ public class FirstStage extends Application {
 		// slut dummy-kod
 		pane.setLeft(playingField);
 		playingField.setSize(playingFieldWidth, playingFieldHeight);
-		playingField.setStyle("-fx-border-color: yellow");
+		playingField.setStyle("-fx-border-color: darkgrey");
 		startXCoord = playingFieldWidth / 2;
 		startYCoord = playingFieldHeight - ballRadius;
 
 		// läggas i playingfield? TODO
+		// createStartPoint(startXCoord, startYCoord); // metod i stället TODO
 		// markerar startpunkten på spelplanen
 		MoveTo moveTo = new MoveTo();
 		moveTo.setX(startMarkX);
@@ -78,7 +72,6 @@ public class FirstStage extends Application {
 		path.getElements().addAll(moveTo, line1, line2, line3, line4);
 		playingField.getChildren().add(path);
 		playingField.placingZones();
-		// createStartPoint(startXCoord, startYCoord); // metod i stället TODO
 
 		/**
 		 * MouseEvent.MOUSE_CLICKED
@@ -106,6 +99,7 @@ public class FirstStage extends Application {
 																	// höja
 																	// hastighet
 																	// TODO
+			// öka farten för varje försök?????????TODO
 			playingField.getChildren().add(ball);
 			ball.animateBallMovement();
 		});

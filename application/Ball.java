@@ -20,6 +20,7 @@ public class Ball extends Circle {
 	private Timeline animation;
 	public double stopXCoord;
 	public double stopYCoord;
+	private PlayingField playingField;
 
 	/**
 	 * Constructor of the class
@@ -43,18 +44,19 @@ public class Ball extends Circle {
 	Ball(double x, double y, double radius, Color color, PlayingField playingField, double dx,
 			double dy) {
 		super(x, y, radius);
+		this.playingField = playingField;
 		this.pfWidth = playingField.getWidth();
 		this.pfHeight = playingField.getHeight();
 		this.dx = dx;
 		this.dy = dy;
-		setFill(color); // Set ball color
+		setFill(color); 
 	}
 
 	/**
-	 * moveBall() inspiration from
+	 * moveBall() inspiration from 
 	 * http://www.cs.armstrong.edu/liang/intro10e/html/MultipleBounceBall.html
 	 * 
-	 * The method decides speed and direction of the ball TODO bättre
+	 * The method handling speed and direction of the ball TODO bättre
 	 * formulering
 	 * 
 	 * Sets a variable to true when the ball stops
@@ -96,10 +98,11 @@ public class Ball extends Circle {
 		// When the ball has stopped moving it gets a black border
 		if (isBallStopped) {
 			this.setStroke(Color.BLACK);
-			// When the balls stops in a zone it changes color
-			if (isInAZone) {
-				this.setFill(Color.CORNFLOWERBLUE);
-			}
+			this.playingField.checkInZone(this);
+		}
+		// When the balls stops in a zone it changes color
+		if (isInAZone) {
+			this.setFill(Color.CORNFLOWERBLUE);
 		}
 	}
 

@@ -29,7 +29,6 @@ public class PlayingField extends Pane {
 							// variabler? TODO
 	List<Integer> pointsList;
 	List<Integer> resultList;
-	public int zoneID;
 
 	/**
 	 * TODO ordval, grammatik? protected?
@@ -45,7 +44,7 @@ public class PlayingField extends Pane {
 	 *            - int that specifies the height of the field
 	 */
 	protected void setSize(int xSize, int ySize) {
-		this.setMaxSize(xSize, ySize); 
+		this.setMaxSize(xSize, ySize);
 		this.setMinSize(xSize, ySize);
 		this.playingFieldWidth = xSize;
 		this.playingFieldHeight = ySize;
@@ -53,7 +52,6 @@ public class PlayingField extends Pane {
 		setClip(crop);
 	}
 
-	
 	// markerar startpunkten på spelplanen
 	public Path createStartPoint(double startXCoord, double startYCoord) {
 		int startMarkX = playingFieldWidth / 2;
@@ -93,30 +91,31 @@ public class PlayingField extends Pane {
 			zone.setStroke(Color.DARKGREY);
 			this.getChildren().add(zone);
 		}
-		// for (int j : pointsList) {
-		// System.out.println("j: " + j);
-		// }
 	}
 
-
-
-	public void checkInZone(Ball ball) {
-		zoneID = -1;
-		// for (Circle zone : zoneList)
-		for (int k = 0; k < zoneList.size(); k++) {
-			ball.inAZone(zoneList.get(k));
-			if (ball.isInAZone) {
-				zoneID = k;
+	/**
+	 * 
+	 * @param ball
+	 * @return
+	 */
+	public int calculatePoints(Ball ball) {
+		int zonePoints = 0;
+		for (Zone zone : zoneList) {
+			ball.inAZone(zone);
+			if (ball.isInAZone()) {
+				zonePoints = zone.getPoints();
 				break;
 			}
 		}
+		return zonePoints;
 	}
 
-	// för varje kast anropas checkinZone, zonID registreras, mha zonID:t letar
-	// man upp poängen i pointList, summerar efter varje kast och skriver ut på
+	//TODO
+	// för varje kast anropas checkinZone, ger
+	// poängen, summerar efter varje kast och skriver ut på
 	// skärmen. När alla bollar är kastade ska resultatet skrivas ut på skärmen
-	
+
 	// skapa ny klass för användare?
-//	private List<Integer> collectResult()resultList
-	
+	// private List<Integer> collectResult()resultList
+
 }

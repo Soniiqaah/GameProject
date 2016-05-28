@@ -7,12 +7,20 @@ public class Zone extends Circle {
 
 	private int points;
 
-	Zone(double x, double y, double radius, int points) {
+	public Zone(double x, double y, double radius, int points) {
 		super(x, y, radius);
 		this.points = points;
 		setFill(getColor(this.points));
 	}
 	
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
+	}
+
 	/**
 	 * setColor(int points)
 	 * 

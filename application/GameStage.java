@@ -1,18 +1,11 @@
 package application;
 
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.LineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 
 /**
@@ -73,10 +66,8 @@ public class GameStage extends Application {
 			// bestämts av avståndet mellan startpunkten och klickpunkten
 			clickedXCoord = event.getX();
 			clickedYCoord = event.getY();
-
 			distanceX = clickedXCoord - startXCoord;
 			distanceY = clickedYCoord - startYCoord;
-
 			ball = new Ball(startXCoord, startYCoord, ballRadius, Color.CHARTREUSE, playingField,
 					distanceX / 100 * 1.5, distanceY / 100 * 1.5); // gångerfaktor
 																	// för

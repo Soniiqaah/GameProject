@@ -1,6 +1,5 @@
 package application;
 
-import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -21,7 +20,7 @@ import javafx.stage.Stage;
  * @author Jannike
  *
  */
-public class FirstStage extends Application {
+public class GameStage extends Application {
 
 	double xcoor;
 	double ycoor;
@@ -35,13 +34,10 @@ public class FirstStage extends Application {
 	private static final int playingFieldWidth = 450;
 	private static final int playingFieldHeight = 500;
 	private static final int ballRadius = 20;
-	private static final int startMarkX = playingFieldWidth / 2;
-	private static final int startMarkY = playingFieldHeight;
 
 	public void start(Stage primaryStage) {
 
 		BorderPane pane = new BorderPane();
-		Path path = new Path();
 		PlayingField playingField = new PlayingField();
 
 		Scene scene = new Scene(pane, 600, 680);
@@ -56,21 +52,10 @@ public class FirstStage extends Application {
 		pane.setLeft(playingField);
 		playingField.setSize(playingFieldWidth, playingFieldHeight);
 		playingField.setStyle("-fx-border-color: darkgrey");
-		startXCoord = playingFieldWidth / 2;
+		startXCoord = playingFieldWidth / 2; // startcoordinates of the ball
 		startYCoord = playingFieldHeight - ballRadius;
 
-		// läggas i playingfield? TODO
-		// createStartPoint(startXCoord, startYCoord); // metod i stället TODO
-		// markerar startpunkten på spelplanen
-		MoveTo moveTo = new MoveTo();
-		moveTo.setX(startMarkX);
-		moveTo.setY(startMarkY);
-		LineTo line1 = new LineTo(startMarkX + 5, startMarkY);
-		LineTo line2 = new LineTo(startMarkX, startMarkY - 8);
-		LineTo line3 = new LineTo(startMarkX - 5, startMarkY);
-		LineTo line4 = new LineTo(startMarkX, startMarkY);
-		path.getElements().addAll(moveTo, line1, line2, line3, line4);
-		playingField.getChildren().add(path);
+		playingField.getChildren().add(playingField.createStartPoint(startXCoord, startYCoord));
 		playingField.placingZones();
 
 		/**
@@ -92,7 +77,7 @@ public class FirstStage extends Application {
 			distanceX = clickedXCoord - startXCoord;
 			distanceY = clickedYCoord - startYCoord;
 
-			ball = new Ball(startXCoord, startYCoord, 20, Color.CHARTREUSE, playingField,
+			ball = new Ball(startXCoord, startYCoord, ballRadius, Color.CHARTREUSE, playingField,
 					distanceX / 100 * 1.5, distanceY / 100 * 1.5); // gångerfaktor
 																	// för
 																	// att
@@ -104,23 +89,12 @@ public class FirstStage extends Application {
 			ball.animateBallMovement();
 		});
 
-		// private void createStartPoint(int startXCoord, int startYCoord) {
-		// MoveTo moveTo = new MoveTo();
-		// moveTo.setX(startXCoord);
-		// moveTo.setY(startYCoord);
-		// LineTo line1 = new LineTo(startXCoord + 5, startYCoord);
-		// LineTo line2 = new LineTo(startXCoord, startYCoord - 8);
-		// LineTo line3 = new LineTo(startXCoord - 5, startYCoord);
-		// LineTo line4 = new LineTo(startXCoord, startYCoord);
-		// path.getElements().addAll(moveTo, line1, line2, line3, line4);
-		// pane.getChildren().add(path);
-		// }
-
 		primaryStage.setTitle(" ");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
 	}
+
 
 	public static void main(String[] args) {
 		launch(args);

@@ -53,10 +53,10 @@ public class Ball extends Circle {
 	}
 
 	/**
-	 * moveBall() inspiration from 
+	 * moveBall() GRUNDKOD FRÅN
 	 * http://www.cs.armstrong.edu/liang/intro10e/html/MultipleBounceBall.html
 	 * 
-	 * The method handling speed and direction of the ball TODO bättre
+	 * The method handles speed and direction of the ball TODO bättre
 	 * formulering
 	 * 
 	 * Sets a variable to true when the ball stops
@@ -65,49 +65,49 @@ public class Ball extends Circle {
 	 * changes color
 	 */
 	protected void moveBall() {
-		// this inte nödvändigt men förtydligande i sammanhanget TODO
-		if ((this.getCenterX() < this.getRadius()) && (this.dx < 0)) {
-			this.dx *= -1; // change direction when hitting the left wall
-		} else if ((this.getCenterX() > this.pfWidth - this.getRadius()) && (this.dx > 0)) {
-			this.dx *= -1; // change direction when hitting the right wall
+		if ((getCenterX() < getRadius()) && (dx < 0)) {
+			dx *= -1; // change direction when hitting the left wall
+		} else if ((getCenterX() > pfWidth - getRadius()) && (dx > 0)) {
+			dx *= -1; // change direction when hitting the right wall
 		}
-		if ((this.getCenterY() < this.getRadius()) && (this.dy < 0)) {
-			this.dy *= -1; // change direction when hitting the top wall
-		} else if ((this.getCenterY() > this.pfHeight - this.getRadius()) && (this.dy > 0)) {
-			this.dy *= -1; // change direction when hitting the bottom wall
+		if ((getCenterY() < getRadius()) && (dy < 0)) {
+			dy *= -1; // change direction when hitting the top wall
+		} else if ((getCenterY() > pfHeight - getRadius()) && (dy > 0)) {
+			dy *= -1; // change direction when hitting the bottom wall
 		}
 
 		// Ball movement
-		this.setCenterX(this.dx + this.getCenterX());
-		this.setCenterY(this.dy + this.getCenterY());
+		setCenterX(dx + getCenterX());
+		setCenterY(dy + getCenterY());
 		// Decreasing the speed
-		this.dx *= 0.995;
-		this.dy *= 0.995;
+		dx *= 0.995;
+		dy *= 0.995;
 		// Make the ball stop a bit quicker
-		if ((Math.abs(this.dx) < 0.05) && (Math.abs(this.dy) < 0.05)) {
-			this.dx = 0;
-			this.dy = 0;
+		if ((Math.abs(dx) < 0.05) && (Math.abs(dy) < 0.05)) {
+			dx = 0;
+			dy = 0;
 		}
 		// The ball has stopped
-		if ((this.dx == 0) && (this.dy == 0)) {
+		if ((dx == 0) && (dy == 0)) {
 			isBallStopped = true;
 			animation.stop(); // Stop animation
-			stopXCoord = this.getCenterX();
-			stopYCoord = this.getCenterY();
+			stopXCoord = getCenterX();
+			stopYCoord = getCenterY();
 		}
 		// When the ball has stopped moving it gets a black border
 		if (isBallStopped) {
-			this.setStroke(Color.BLACK);
-			this.playingField.checkInZone(this);
+			setStroke(Color.BLACK);
+			playingField.checkInZone(this);
 		}
 		// When the balls stops in a zone it changes color
 		if (isInAZone) {
-			this.setFill(Color.CORNFLOWERBLUE);
+			setFill(Color.CORNFLOWERBLUE);
 		}
 	}
 
 	/**
-	 * animateBallMovement()
+	 * animateBallMovement() GRUNDKOD FRÅN
+	 * http://www.cs.armstrong.edu/liang/intro10e/html/MultipleBounceBall.html
 	 * 
 	 * The animation of the balls movement
 	 */
@@ -132,8 +132,8 @@ public class Ball extends Circle {
 	 */
 	public boolean inAZone(Circle zone) {
 		double distanceToZoneCenter;
-		distanceToZoneCenter = Math.sqrt(Math.pow((this.stopXCoord - zone.getCenterX()), 2)
-				+ (Math.pow((this.stopYCoord - zone.getCenterY()), 2)));
+		distanceToZoneCenter = Math.sqrt(Math.pow((stopXCoord - zone.getCenterX()), 2)
+				+ (Math.pow((stopYCoord - zone.getCenterY()), 2)));
 		if (distanceToZoneCenter <= zone.getRadius()) {
 			isInAZone = true;
 		}

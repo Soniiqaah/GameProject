@@ -126,7 +126,7 @@ public class Ball extends Circle {
 	 * The animation of the balls movement
 	 */
 	public void animateBallMovement() {
-		animation = new Timeline(new KeyFrame(Duration.millis(10), e -> playBall()));
+		animation = new Timeline(new KeyFrame(Duration.millis(1000 / GameStage.FRAME_RATE), e -> playBall()));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.play();
 	}

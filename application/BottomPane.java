@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 public class BottomPane extends GridPane {
 
 	public GridPane setupBottomPane() {
-		return addDemoBallsToGrid(InfoPane.getNumOfBallsToBePlayed());
+		return addDemoBallsToGrid(4);// TODO: InfoPane.getNumOfBallsToBePlayed());
 	}
 	
 	private GridPane addDemoBallsToGrid(int numOfBalls) {

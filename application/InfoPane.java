@@ -18,8 +18,11 @@ public class InfoPane extends GridPane {
 	// lablar, textrutor etc för info och dialog
 	// dialog för val av antal bollar
 	
+	private ComboBox<String> optionsCBox;
+	private int numOfBallsToBePlayed;
+
 	public InfoPane() {
-		ComboBox<String> optionsCBox = new ComboBox<String>();;
+		optionsCBox = new ComboBox<String>();
 		Text title = new Text("Skeeball");
 		Text introQuestion = new Text("Hur många bollar vill du spela?");
 		Button numOfBallsDecided = new Button("OK");
@@ -42,14 +45,23 @@ public class InfoPane extends GridPane {
 		introQuestion.setFont(Font.font("Arial", 18));
 		add(introQuestion, 0, 2, 5, 1);
 		optionsCBox.getItems().addAll("3", "5", "7");
+		optionsCBox.setValue("5"); // default TODO
 		add(optionsCBox, 6, 2, 2, 1);
 		add(numOfBallsDecided, 8, 2, 1, 1);
+		add(pointsGrid, 0, 4, 9, 9);
+		//fler komponenter ska adderas
+		// antalet bollar ska läsas av
 		
+		
+		numOfBallsDecided.setOnAction(event -> {
+			numOfBallsToBePlayed = getNumOfBallsToBePlayed();
+			// TODO: bottomPane.setNumberOfBalls(numOfBallsToBePlayed);
+		});
 	}
+
 	
-	public static int getNumOfBallsToBePlayed() {
-		return 6;
-		
+	public int getNumOfBallsToBePlayed() {
+		return Integer.parseInt(optionsCBox.getValue());
 	}
 	
 }

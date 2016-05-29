@@ -2,7 +2,6 @@ package application;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -15,6 +14,9 @@ import javafx.stage.Stage;
  *
  */
 public class GameStage extends Application {
+	public static final int FRAME_RATE = 100; // Används för att räkna ut
+												// bollens hastighet och i Ball
+												// för att animera.
 
 	private Ball ball;
 	private double clickedXCoord; // globala för att kommas åt i eventhandlern
@@ -36,11 +38,11 @@ public class GameStage extends Application {
 
 		Scene scene = new Scene(pane, 850, 650);
 		Label topLabel = new Label("Plats för menyer");
-		InfoPane infoPane = new InfoPane();
 		BottomPane bottomPane = new BottomPane();
+		InfoPane infoPane = new InfoPane();
 		pane.setTop(topLabel);
 		pane.setRight(infoPane);
-		pane.setBottom(bottomPane.setupBottomPane()); 
+		pane.setBottom(bottomPane.setupBottomPane());
 		pane.setLeft(playingField);
 		playingField.setSize(playingFieldWidth, playingFieldHeight);
 		playingField.setStyle("-fx-border-color: darkgrey");
@@ -49,7 +51,7 @@ public class GameStage extends Application {
 
 		playingField.getChildren().add(playingField.createStartPoint(startXCoord, startYCoord));
 		playingField.placingZones();
-		ballsLeftToPlay = InfoPane.getNumOfBallsToBePlayed();
+		ballsLeftToPlay = infoPane.getNumOfBallsToBePlayed();
 		/**
 		 * MouseEvent.MOUSE_CLICKED
 		 * 
@@ -67,21 +69,22 @@ public class GameStage extends Application {
 				return;
 			}
 			ballsLeftToPlay--;
+			// TODO: Uppdatera bottomPane
 			clickedXCoord = event.getX();
 			clickedYCoord = event.getY();
 			distanceX = clickedXCoord - startXCoord;
 			distanceY = clickedYCoord - startYCoord;
 			ball = new Ball(startXCoord, startYCoord, ballRadius, Color.CHARTREUSE, playingField,
-					distanceX / 100 * 1.5, distanceY / 100 * 1.5); // gångerfaktor
-																	// för
-																	// att
-																	// höja
-																	// hastighet
-																	// TODO
+					distanceX / FRAME_RATE * 1.5, distanceY / FRAME_RATE * 1.5); // gångerfaktor
+			// för
+			// att
+			// höja
+			// hastighet
+			// TODO
 			// öka farten för varje försök?????????TODO
 			playingField.getChildren().add(ball);
 			ball.animateBallMovement();
-			
+
 		});
 
 		primaryStage.setTitle("Skeeball");
@@ -93,6 +96,7 @@ public class GameStage extends Application {
 	public int getBallsLeftToPlay() {
 		return ballsLeftToPlay;
 	}
+
 	public static void main(String[] args) {
 		launch(args);
 	}

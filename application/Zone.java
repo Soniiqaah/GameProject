@@ -12,7 +12,7 @@ public class Zone extends Circle {
 		this.points = points;
 		setFill(getColor(this.points));
 	}
-	
+
 	public int getPoints() {
 		return points;
 	}
@@ -22,9 +22,9 @@ public class Zone extends Circle {
 	}
 
 	/**
-	 * setColor(int points)
+	 * getColor(int points)
 	 * 
-	 * The input is a int value that is matched with a color
+	 * The input is an int value that is matched with a color
 	 * 
 	 * @param points
 	 *            - A int value representing number of points
@@ -56,13 +56,11 @@ public class Zone extends Circle {
 			break;
 		case 50:
 			colorName = Color.web("Orchid"); // #DA70D6;
-			break; // break saknades i tidigare version av koden så radie = 5
-					// gav svart zon TODO
+			break; 
 		default:
 			colorName = Color.web("Black");
 		}
 		return colorName;
 	}
 
-	
 }

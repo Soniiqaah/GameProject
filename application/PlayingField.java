@@ -2,12 +2,8 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
-
-//import org.eclipse.persistence.descriptors.SelectedFieldsLockingPolicy;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
@@ -22,13 +18,10 @@ import javafx.scene.shape.Rectangle;
  */
 public class PlayingField extends Pane {
 
-	int playingFieldWidth; // ska man ha int eller double? TODO
-	int playingFieldHeight;
+	private int playingFieldWidth;
+	private int playingFieldHeight;
 
-	List<Zone> zoneList; // kan man lösa det på annat sätt än med globala
-							// variabler? TODO
-	List<Integer> pointsList;
-	List<Integer> resultList;
+	private List<Zone> zoneList;
 
 	/**
 	 * TODO ordval, grammatik? protected?
@@ -43,7 +36,7 @@ public class PlayingField extends Pane {
 	 * @param ySize
 	 *            - int that specifies the height of the field
 	 */
-	protected void setSize(int xSize, int ySize) {
+	public void setSize(int xSize, int ySize) {
 		this.setMaxSize(xSize, ySize);
 		this.setMinSize(xSize, ySize);
 		this.playingFieldWidth = xSize;
@@ -75,9 +68,8 @@ public class PlayingField extends Pane {
 	 * The zones that gives points are declared, defined and added to the
 	 * playingfield in this method
 	 * 
-	 * TODO Map för att para ihop poäng med zon?
 	 */
-	protected void placingZones() {
+	public void placingZones() {
 		zoneList = new ArrayList<Zone>();
 		zoneList.add(new Zone(0, 0, 60, 20));
 		zoneList.add(new Zone(playingFieldWidth, 0, 50, 30));
@@ -110,7 +102,7 @@ public class PlayingField extends Pane {
 		return zonePoints;
 	}
 
-	//TODO
+	// TODO
 	// för varje kast anropas checkinZone, ger
 	// poängen, summerar efter varje kast och skriver ut på
 	// skärmen. När alla bollar är kastade ska resultatet skrivas ut på skärmen

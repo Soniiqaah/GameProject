@@ -118,6 +118,7 @@ public class Ball extends Circle {
 		moveBall();
 		whenBallStopped();
 	}
+
 	/**
 	 * animateBallMovement() GRUNDKOD FRÅN
 	 * http://www.cs.armstrong.edu/liang/intro10e/html/MultipleBounceBall.html

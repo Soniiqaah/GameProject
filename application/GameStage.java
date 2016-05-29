@@ -3,6 +3,7 @@ package application;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -15,33 +16,31 @@ import javafx.stage.Stage;
  */
 public class GameStage extends Application {
 
-	double xcoor;
-	double ycoor;
-	Ball ball;
-	double clickedXCoord; // globala för att kommas åt i eventhandlern TODO
-	double clickedYCoord;
-	double startXCoord;
-	double startYCoord;
-	double distanceX;
-	double distanceY;
+	private Ball ball;
+	private double clickedXCoord; // globala för att kommas åt i eventhandlern
+									// TODO
+	private double clickedYCoord;
+	private double startXCoord;
+	private double startYCoord;
+	private double distanceX;
+	private double distanceY;
 	private static final int playingFieldWidth = 450;
 	private static final int playingFieldHeight = 500;
 	private static final int ballRadius = 20;
+	private int ballsLeftToPlay = 0;
 
 	public void start(Stage primaryStage) {
 
 		BorderPane pane = new BorderPane();
 		PlayingField playingField = new PlayingField();
 
-		Scene scene = new Scene(pane, 600, 680);
-		// dummy-kod för att få fason på scenen så länge
-		Button topButton = new Button("Toppknapp");
-		Button rightButton = new Button("Högerknapp");
-		Button bottomButton = new Button("Bottenknapp");
-		pane.setTop(topButton);
-		pane.setRight(rightButton);
-		pane.setBottom(bottomButton);
-		// slut dummy-kod
+		Scene scene = new Scene(pane, 850, 650);
+		Label topLabel = new Label("Plats för menyer");
+		InfoPane infoPane = new InfoPane();
+		BottomPane bottomPane = new BottomPane();
+		pane.setTop(topLabel);
+		pane.setRight(infoPane);
+		pane.setBottom(bottomPane.setupBottomPane()); 
 		pane.setLeft(playingField);
 		playingField.setSize(playingFieldWidth, playingFieldHeight);
 		playingField.setStyle("-fx-border-color: darkgrey");
@@ -50,7 +49,7 @@ public class GameStage extends Application {
 
 		playingField.getChildren().add(playingField.createStartPoint(startXCoord, startYCoord));
 		playingField.placingZones();
-
+		ballsLeftToPlay = InfoPane.getNumOfBallsToBePlayed();
 		/**
 		 * MouseEvent.MOUSE_CLICKED
 		 * 
@@ -64,6 +63,10 @@ public class GameStage extends Application {
 		playingField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			// vid klick: bollen rullar i given riktning med en fart som
 			// bestämts av avståndet mellan startpunkten och klickpunkten
+			if (ballsLeftToPlay == 0) {
+				return;
+			}
+			ballsLeftToPlay--;
 			clickedXCoord = event.getX();
 			clickedYCoord = event.getY();
 			distanceX = clickedXCoord - startXCoord;
@@ -78,15 +81,18 @@ public class GameStage extends Application {
 			// öka farten för varje försök?????????TODO
 			playingField.getChildren().add(ball);
 			ball.animateBallMovement();
+			
 		});
 
-		primaryStage.setTitle(" ");
+		primaryStage.setTitle("Skeeball");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
 	}
 
-
+	public int getBallsLeftToPlay() {
+		return ballsLeftToPlay;
+	}
 	public static void main(String[] args) {
 		launch(args);
 	}

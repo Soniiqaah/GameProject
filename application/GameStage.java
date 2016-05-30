@@ -1,6 +1,9 @@
 package application;
 
+import java.util.Iterator;
+
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -9,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /**
+ * TODO
  * 
  * @author Jannike
  *
@@ -22,36 +26,37 @@ public class GameStage extends Application {
 	private double clickedXCoord; // globala för att kommas åt i eventhandlern
 									// TODO
 	private double clickedYCoord;
-	private double startXCoord;
-	private double startYCoord;
+	private static double startXCoord;
+	private static double startYCoord;
 	private double distanceX;
 	private double distanceY;
 	private static final int playingFieldWidth = 450;
 	private static final int playingFieldHeight = 500;
 	private static final int ballRadius = 20;
 	private int ballsLeftToPlay = 0;
-
+	private BottomPane bottomPane = new BottomPane();
+	private PlayingField playingField = new PlayingField();
+	private int sumOfBalls = 0;
+	private InfoPane infoPane;
+	
+	/**
+	 * TODO
+	 */
 	public void start(Stage primaryStage) {
 
 		BorderPane pane = new BorderPane();
-		PlayingField playingField = new PlayingField();
-
 		Scene scene = new Scene(pane, 850, 650);
 		Label topLabel = new Label("Plats för menyer");
-		BottomPane bottomPane = new BottomPane();
-		InfoPane infoPane = new InfoPane();
+		infoPane = new InfoPane(this);
 		pane.setTop(topLabel);
 		pane.setRight(infoPane);
-		pane.setBottom(bottomPane.setupBottomPane());
+		pane.setBottom(bottomPane);
 		pane.setLeft(playingField);
-		playingField.setSize(playingFieldWidth, playingFieldHeight);
+		playingField.createPlayingField(playingFieldWidth, playingFieldHeight);
 		playingField.setStyle("-fx-border-color: darkgrey");
 		startXCoord = playingFieldWidth / 2; // startcoordinates of the ball
 		startYCoord = playingFieldHeight - ballRadius;
 
-		playingField.getChildren().add(playingField.createStartPoint(startXCoord, startYCoord));
-		playingField.placingZones();
-		ballsLeftToPlay = infoPane.getNumOfBallsToBePlayed();
 		/**
 		 * MouseEvent.MOUSE_CLICKED
 		 * 
@@ -62,20 +67,24 @@ public class GameStage extends Application {
 		 * 
 		 * A ball is created, added to the playingField and is set in motion.
 		 */
+
 		playingField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			// vid klick: bollen rullar i given riktning med en fart som
 			// bestämts av avståndet mellan startpunkten och klickpunkten
+			System.out.println("ballsLeftToPlay: " + ballsLeftToPlay);
 			if (ballsLeftToPlay == 0) {
+				
 				return;
 			}
 			ballsLeftToPlay--;
+			bottomPane.setupBottomPane(ballsLeftToPlay);
 			// TODO: Uppdatera bottomPane
 			clickedXCoord = event.getX();
 			clickedYCoord = event.getY();
 			distanceX = clickedXCoord - startXCoord;
 			distanceY = clickedYCoord - startYCoord;
 			ball = new Ball(startXCoord, startYCoord, ballRadius, Color.CHARTREUSE, playingField,
-					distanceX / FRAME_RATE * 1.5, distanceY / FRAME_RATE * 1.5); // gångerfaktor
+					this, distanceX / FRAME_RATE * 1.5, distanceY / FRAME_RATE * 1.5); // gångerfaktor
 			// för
 			// att
 			// höja
@@ -93,10 +102,49 @@ public class GameStage extends Application {
 
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
 	public int getBallsLeftToPlay() {
 		return ballsLeftToPlay;
 	}
 
+	/**
+	 * TODO
+	 * @param numOfBallsToBePlayed
+	 */
+	public void setBallsLeftToPlay(int numOfBallsToBePlayed) {
+		ballsLeftToPlay = numOfBallsToBePlayed;
+		bottomPane.setupBottomPane(ballsLeftToPlay);
+		// Removes the balls from last game
+		Iterator<Node> iterator = playingField.getChildren().iterator();
+		while (iterator.hasNext()) {
+			Node node = iterator.next();
+			if (node instanceof Ball) {
+				iterator.remove();
+			}
+		}
+		sumOfBalls = 0;
+	}
+
+	/**
+	 * TODO
+	 * @param ballPoints
+	 */
+	public void setBallPoints(int ballPoints) {
+		sumOfBalls += ballPoints;
+		infoPane.setBallPoints(ballPoints);
+		System.out.println("bollpoäng: " + ballPoints + " summa: " + sumOfBalls);
+		// TODO Efter sista bollens poäng sumerats -> spara db
+	}
+	
+	/**
+	 * TODO 
+	 * SKA BARA VAR PÅ ETT STÄLLE!!!!!!!!!!!!!!!!!!!! InlogView?
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}

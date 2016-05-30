@@ -20,8 +20,12 @@ public class InfoPane extends GridPane {
 	
 	private ComboBox<String> optionsCBox;
 	private int numOfBallsToBePlayed;
-
-	public InfoPane() {
+	private GameStage gameStage;
+	private int latestPoints;
+	private int sumOfBallPoints = 0;
+	
+	public InfoPane(GameStage gameStage) {
+		this.gameStage = gameStage;
 		optionsCBox = new ComboBox<String>();
 		Text title = new Text("Skeeball");
 		Text introQuestion = new Text("Hur många bollar vill du spela?");
@@ -29,8 +33,9 @@ public class InfoPane extends GridPane {
 		GridPane pointsGrid = new GridPane();
 		Label pointsSoFar = new Label("Poäng i pågående spel: ");
 		Label outputPointsSoFar = new Label();
-		Label ballsLeftToPlay = new Label("Antal bollar kvar att spela: ");
+		Label ballsLeftToPlayHeadline = new Label("Antal bollar kvar att spela: ");
 		Label outputBallsLeftToPlay = new Label();
+		int numOfBallsLeftToPlay = 0;
 		int totalSum = 0;
 		Label resultOutPut = new Label("Spelet är slut. Du fick " + totalSum + " poäng.");
 		int numOfBallsPlayed = 0;
@@ -45,7 +50,9 @@ public class InfoPane extends GridPane {
 		introQuestion.setFont(Font.font("Arial", 18));
 		add(introQuestion, 0, 2, 5, 1);
 		optionsCBox.getItems().addAll("3", "5", "7");
-		optionsCBox.setValue("5"); // default TODO
+		System.out.println("A");
+//		optionsCBox.setValue("5"); // default TODO
+		System.out.println("B");
 		add(optionsCBox, 6, 2, 2, 1);
 		add(numOfBallsDecided, 8, 2, 1, 1);
 		add(pointsGrid, 0, 4, 9, 9);
@@ -55,7 +62,8 @@ public class InfoPane extends GridPane {
 		
 		numOfBallsDecided.setOnAction(event -> {
 			numOfBallsToBePlayed = getNumOfBallsToBePlayed();
-			// TODO: bottomPane.setNumberOfBalls(numOfBallsToBePlayed);
+			gameStage.setBallsLeftToPlay(numOfBallsToBePlayed);
+			sumOfBallPoints = 0;
 		});
 	}
 
@@ -63,5 +71,11 @@ public class InfoPane extends GridPane {
 	public int getNumOfBallsToBePlayed() {
 		return Integer.parseInt(optionsCBox.getValue());
 	}
+	
+	public void setBallPoints(int ballPoints) {
+		latestPoints = ballPoints;
+		sumOfBallPoints += ballPoints;
+	}
+
 	
 }

@@ -19,39 +19,27 @@ public class Ball extends Circle {
 	private PlayingField playingField;
 	private boolean isBallStopped = false;
 	private boolean isInAZone = false;
+	private int ballPoints = 0;
+	private GameStage gameStage;
 
 	/**
-	 * Constructor of the class
+	 * TODO Constructor of the class
 	 * 
-	 * @param x
-	 *            - A double, defines the x-coordinate of the centre of the ball
-	 * @param y
-	 *            - A double, defines the y-coordinate of the centre of the ball
-	 * @param radius
-	 *            - A double, defines the radius of the ball
-	 * @param color
-	 *            - A Color, the default color of a ball
-	 * @param playingField
-	 *            - A PlayingField, the playingField that the ball is associated
-	 *            with
-	 * @param dx
-	 *            - A double, the speed in the x-direction of the ball
-	 * @param dy
-	 *            - A double, the speed in the y-direction of the ball
 	 */
 	public Ball(double x, double y, double radius, Color color, PlayingField playingField,
-			double dx, double dy) {
+			GameStage gameStage, double dx, double dy) {
 		super(x, y, radius);
 		this.playingField = playingField;
 		this.pfWidth = playingField.getWidth();
 		this.pfHeight = playingField.getHeight();
+		this.gameStage = gameStage;
 		this.dx = dx;
 		this.dy = dy;
 		setFill(color);
 	}
 
 	/**
-	 * moveBall() GRUNDKOD FRÅN
+	 * moveBall() based on
 	 * http://www.cs.armstrong.edu/liang/intro10e/html/MultipleBounceBall.html
 	 * 
 	 * The method handles speed and direction of the ball TODO bättre
@@ -59,8 +47,6 @@ public class Ball extends Circle {
 	 * 
 	 * Sets a variable to true when the ball stops
 	 * 
-	 * When the ball stops it gets a black border, if it stops in a zone it also
-	 * changes color
 	 */
 	protected void moveBall() {
 
@@ -93,40 +79,56 @@ public class Ball extends Circle {
 		}
 	}
 
+	/**
+	 * When the ball has stopped moving it gets a black border.
+	 * 
+	 * If it stopped in a zone the color of the ball is changed.
+	 */
 	private void whenBallStopped() {
-		// When the ball has stopped moving it gets a black border and a check
-		// if it is in a zone is made
 		if (isBallStopped()) {
 			setStroke(Color.BLACK);
-			playingField.calculatePoints(this);
+			gameStage.setBallPoints(playingField.calculatePoints(this));
 		}
-		// When the balls stops in a zone it changes color
 		if (isInAZone()) {
 			setFill(Color.CORNFLOWERBLUE);
 		}
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
 	public boolean isBallStopped() {
 		return isBallStopped;
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
 	public boolean isInAZone() {
 		return isInAZone;
 	}
 
+	/**
+	 * TODO
+	 */
 	public void playBall() {
 		moveBall();
 		whenBallStopped();
 	}
 
 	/**
-	 * animateBallMovement() GRUNDKOD FRÅN
+	 * animateBallMovement() based on
 	 * http://www.cs.armstrong.edu/liang/intro10e/html/MultipleBounceBall.html
 	 * 
 	 * The animation of the balls movement
 	 */
 	public void animateBallMovement() {
-		animation = new Timeline(new KeyFrame(Duration.millis(1000 / GameStage.FRAME_RATE), e -> playBall()));
+		animation = new Timeline(
+				new KeyFrame(Duration.millis(1000 / GameStage.FRAME_RATE), e -> playBall()));
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.play();
 	}

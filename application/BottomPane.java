@@ -6,17 +6,16 @@ import javafx.scene.paint.Color;
 
 public class BottomPane extends GridPane {
 
-	public GridPane setupBottomPane() {
-		return addDemoBallsToGrid(4);// TODO: InfoPane.getNumOfBallsToBePlayed());
+	public void setupBottomPane(int numOfBalls) {
+		addDemoBallsToGrid(numOfBalls);// 
 	}
 	
-	private GridPane addDemoBallsToGrid(int numOfBalls) {
-		GridPane demoBallGrid = new GridPane();
+	private void addDemoBallsToGrid(int numOfBalls) {
 		// TODO padding etc
+		this.getChildren().clear();
 		for (int i = 0; i < numOfBalls; i++) {
-			demoBallGrid.add(DemoBall.createDemoBallOnPane(), i, 0);
+			add(DemoBall.createDemoBallOnPane(), i, 0);
 		}
-		return demoBallGrid;
 	}
 	
 }

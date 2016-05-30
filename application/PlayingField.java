@@ -20,7 +20,8 @@ public class PlayingField extends Pane {
 
 	private int playingFieldWidth;
 	private int playingFieldHeight;
-
+	private double startXCoord;
+	private double startYCoord;
 	private List<Zone> zoneList;
 
 	/**
@@ -36,15 +37,26 @@ public class PlayingField extends Pane {
 	 * @param ySize
 	 *            - int that specifies the height of the field
 	 */
-	public void setSize(int xSize, int ySize) {
+	public void createPlayingField(int xSize, int ySize) {
 		this.setMaxSize(xSize, ySize);
 		this.setMinSize(xSize, ySize);
 		this.playingFieldWidth = xSize;
 		this.playingFieldHeight = ySize;
+		this.startXCoord = playingFieldWidth / 2;
+		this.startYCoord = playingFieldHeight;
+		getChildren().add(createStartPoint(startXCoord, startYCoord));
+		placingZones();
 		Rectangle crop = new Rectangle(playingFieldWidth, playingFieldHeight);
 		setClip(crop);
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @param startXCoord
+	 * @param startYCoord
+	 * @return
+	 */
 	// markerar startpunkten på spelplanen
 	public Path createStartPoint(double startXCoord, double startYCoord) {
 		int startMarkX = playingFieldWidth / 2;
@@ -86,6 +98,7 @@ public class PlayingField extends Pane {
 	}
 
 	/**
+	 * TODO
 	 * 
 	 * @param ball
 	 * @return
@@ -101,13 +114,5 @@ public class PlayingField extends Pane {
 		}
 		return zonePoints;
 	}
-
-	// TODO
-	// för varje kast anropas checkinZone, ger
-	// poängen, summerar efter varje kast och skriver ut på
-	// skärmen. När alla bollar är kastade ska resultatet skrivas ut på skärmen
-
-	// skapa ny klass för användare?
-	// private List<Integer> collectResult()resultList
 
 }

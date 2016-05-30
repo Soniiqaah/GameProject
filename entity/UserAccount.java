@@ -20,8 +20,8 @@ import javax.persistence.Table;
 
 @Entity
 @NamedQueries({
-@NamedQuery(query = "Select user from UserAccount user", name = "Show all users"),
-@NamedQuery(query = "Select user from UserAccount user where user.username = :uname", name ="Checking if username is avaible"),
+@NamedQuery(query = "Select user from UserAccount user", name = "ShowAllUsers"),
+@NamedQuery(query = "Select user from UserAccount user where user.username = :uname", name ="CheckingIfUsernameIsAvailable"),
 
 })
 @Table
@@ -31,7 +31,7 @@ public class UserAccount {
 	private int userid;
 	
 	private String username;
-	private String password;
+	private String userpw;
 
 
 	// Empty Constructor
@@ -42,12 +42,12 @@ public class UserAccount {
 	/**
 	 * 
 	 * @param user
-	 * @param password
+	 * @param password TODO
 	 */
 
-	public UserAccount(String username, String password) {
+	public UserAccount(String username, String userpw) {
 		this.username = username;
-		this.password = password;
+		this.userpw = userpw;
 
 	}
 	/**
@@ -64,10 +64,10 @@ public class UserAccount {
 	}
 
 	public String getPassword() {
-		return password;
+		return userpw;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(String userpw) {
 	}
 
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -26,10 +27,15 @@ public class InlogView extends Application {
 	private String password;
 	private String confirmpass;
 	private String alertmsg = "";
+	private List<UserAccount> allUsers;
+	private UserAccount user;
+	
+	
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+		Text wrongLogin = new Text("Wrong username/password");
+		
 		BorderPane layout = new BorderPane();
 
 		AnchorPane center = new AnchorPane();
@@ -68,20 +74,32 @@ public class InlogView extends Application {
 		center.setTopAnchor(label, 70.0);
 		center.setLeftAnchor(label, 10.0);
 
-		TextField txtName = new TextField("");
-		center.setTopAnchor(txtName, 30.0);
-		center.setLeftAnchor(txtName, 10.0);
+		TextField txtUser = new TextField("");
+		center.setTopAnchor(txtUser, 30.0);
+		center.setLeftAnchor(txtUser, 10.0);
 
-		TextField txtName3 = new TextField("");
-		center.setTopAnchor(txtName3, 90.0);
-		center.setLeftAnchor(txtName3, 10.0);
+		TextField txtPw = new TextField("");
+		center.setTopAnchor(txtPw, 90.0);
+		center.setLeftAnchor(txtPw, 10.0);
 
 		Button okbutton = new Button("Log in");
 		center.setTopAnchor(okbutton, 350.0);
 		center.setLeftAnchor(okbutton, 330.0);
+		
+		okbutton.setOnAction(event -> {
+		user = loginUser(txtUser.getText(), txtPw.getText(), allUsers);
+		if(user != null){
+			okbutton.setText("Log out");
+			wrongLogin.setVisible(false);
+		}else{
+			wrongLogin.setVisible(true);
+		}
+		
+		}
+		);
 
 		layout.setCenter(center);
-		center.getChildren().addAll(label, label1, okbutton, txtName, account, txtName3);
+		center.getChildren().addAll(label, label1, okbutton, txtUser, account, txtPw, wrongLogin);
 
 		Scene scene = new Scene(layout, 500, 500);
 

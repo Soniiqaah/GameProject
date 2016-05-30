@@ -70,5 +70,10 @@ public class Account {
 
 	public void setPassword(String password) {
 	}
+	
+	public static void main (String[] args) {
+		launch(args);
+		
+	}
 
 }

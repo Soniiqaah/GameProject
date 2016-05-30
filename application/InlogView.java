@@ -15,6 +15,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.util.List;
+
+import entity.Account;
 
 public class InlogView extends Application {
 
@@ -118,7 +121,12 @@ public class InlogView extends Application {
     		
     	}
 }
-    	
+   public Account loginUser(String username, String password){
+	return null;
+
+    }
+	
+	private List <Account> AccountList;
     
     
     public static void main(String[] args) {

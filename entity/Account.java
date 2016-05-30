@@ -22,6 +22,7 @@ import javax.persistence.Table;
 @NamedQueries({
 @NamedQuery(query = "Select user from Account user", name = "Show all users"),
 @NamedQuery(query = "Select user from Account user where user.username = :uname", name ="Checking if username is avaible"),
+
 })
 @Table
 public class Account {
@@ -31,9 +32,7 @@ public class Account {
 	
 	private String username;
 	private String password;
-	
-	@OneToMany
-	private List <Account> AccountList;
+
 
 	// Empty Constructor
 
@@ -69,11 +68,6 @@ public class Account {
 	}
 
 	public void setPassword(String password) {
-	}
-	
-	public static void main (String[] args) {
-		launch(args);
-		
 	}
 
 }

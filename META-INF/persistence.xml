@@ -10,8 +10,8 @@
   <!--Kommentar: För varje tabellobjekt/entitet som skapas så de läggas till här  --> 
      
        <class>entity.GameLevel</class>
-     <class>entity.Account</class>
-      
+     <class>entity.UserAccount</class>
+      <class>entity.Result</class>
 
 
      

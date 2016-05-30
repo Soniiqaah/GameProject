@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 
 @Entity
-//@NamedQuery(query = "", name = "")
+
 @Table
 public class GameLevel {
 

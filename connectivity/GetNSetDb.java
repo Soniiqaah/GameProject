@@ -2,7 +2,9 @@ package connectivity;
 
 import javax.persistence.Persistence;
 
-import entity.Account;
+import entity.UserAccount;
+import entity.GameLevel;
+import entity.Result;
 
 import java.util.List;
 
@@ -16,14 +18,19 @@ public class GetNSetDb {
 		em = Persistence.createEntityManagerFactory("skeeballdb").createEntityManager();
 	}
 
-	public List<Account> getAccount() {
-		List<Account> allAccounts = em.createQuery("Select a from Account a").getResultList();
+	public List<UserAccount> getAccounts() {
+		List<UserAccount> allAccounts = em.createQuery("Select a from Account a").getResultList();
 		return allAccounts;
 	}
 
-public List<GameLevel> getGameLevel(){
-	List<GameLevel> allGameLevels = em.createQuery("Select g from GameLevel g").getResultList();
-	return allGameLevels;
-	
+	public List<GameLevel> getGameLevels() {
+		List<GameLevel> allGameLevels = em.createQuery("Select g from GameLevel g").getResultList();
+		return allGameLevels;
+
+	}
+	public List<Result> getResults(){
+		List<Result> allResults = em.createQuery("Select r from Result r").getResultList();
+		return allResults;
+	}
 }
-}
+

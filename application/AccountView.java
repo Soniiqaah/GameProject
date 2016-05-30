@@ -95,19 +95,7 @@ public class AccountView extends Application {
 			Alert aboutMessage = new Alert(AlertType.INFORMATION, "Create an account"); 
 			aboutMessage.showAndWait();
 			
-		});	
-	
-		/*okbutton.setOnAction(e -> {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("Information Dialog");
-			alert.setHeaderText("Now you have an account!");
-			alert.setContentText("Welcome!");
-
-			alert.showAndWait();
-		}
-		
-		);
-		*/
+		});
 		
     }
     public void checkUser(String user, String password, String confirmpass){

@@ -20,12 +20,12 @@ import javax.persistence.Table;
 
 @Entity
 @NamedQueries({
-@NamedQuery(query = "Select user from Account user", name = "Show all users"),
-@NamedQuery(query = "Select user from Account user where user.username = :uname", name ="Checking if username is avaible"),
+@NamedQuery(query = "Select user from UserAccount user", name = "Show all users"),
+@NamedQuery(query = "Select user from UserAccount user where user.username = :uname", name ="Checking if username is avaible"),
 
 })
 @Table
-public class Account {
+public class UserAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userid;
@@ -36,7 +36,7 @@ public class Account {
 
 	// Empty Constructor
 
-	public Account() {
+	public UserAccount() {
 
 	}
 	/**
@@ -45,7 +45,7 @@ public class Account {
 	 * @param password
 	 */
 
-	public Account(String username, String password) {
+	public UserAccount(String username, String password) {
 		this.username = username;
 		this.password = password;
 

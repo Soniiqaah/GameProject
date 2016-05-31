@@ -21,15 +21,18 @@ public class GameLevel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int levelid;
+	private int levelId;
 	/**
-	 * instance variables
+	 * declare instance variables
 	 */
 
 	private int numOfTryOuts;
 	private int points;
 	
 	@ManyToOne
+	/**
+	 * 
+	 */
 	private GameLevel gamelevel;
 
 	public GameLevel() {

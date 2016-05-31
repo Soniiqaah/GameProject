@@ -20,7 +20,11 @@ import java.util.List;
 
 import connectivity.GetNSetDb;
 import entity.UserAccount;
-
+/**
+ * 
+ * @author Soniiqaah
+ *
+ */
 public class InlogView extends Application {
 
 	private String username;

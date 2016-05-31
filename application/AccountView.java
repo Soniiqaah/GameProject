@@ -23,7 +23,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
+/**
+ * 
+ * @author Soniiqaah
+ *
+ */
 public class AccountView extends Application {
 	private String username;
 	private String password;
@@ -144,20 +148,6 @@ public class AccountView extends Application {
 		}
 		return false;
 	} 
-
-	public void checkUser(String user, String password, String confirmpass) {
-		if (username.length() < 5) {
-			alertmsg = ("The username is not long enough, please try again!");
-		} else if (password.length() < 5) {
-			alertmsg = ("You have to atleast type in six characters for the password!");
-		} else if (password != confirmpass) {
-			alertmsg = ("The both password must match!");
-
-		} else {
-			alertmsg = ("You are logged in!");
-
-		}
-	}
 
 	public static void main(String[] args) {
 		Application.launch(args);

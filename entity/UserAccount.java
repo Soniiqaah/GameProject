@@ -29,7 +29,7 @@ public class UserAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int userid;
-	
+
 	private String username;
 	private String userpw;
 
@@ -41,8 +41,8 @@ public class UserAccount {
 	}
 	/**
 	 * 
-	 * @param user
-	 * @param password TODO
+	 * @param username
+	 * @param userpw
 	 */
 
 	public UserAccount(String username, String userpw) {

@@ -114,7 +114,7 @@ public class AccountView extends Application {
 	}
 
 	public boolean addUserAccount(String username, String password) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("skeeballdb");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eclipselink_JPA");
 		EntityManager em = emf.createEntityManager();
 		if (!checkDouble(username, em)) {
 			UserAccount user = new UserAccount();
@@ -137,8 +137,8 @@ public class AccountView extends Application {
 	public boolean checkDouble(String username, EntityManager em){
 		Query query = em.createNamedQuery("CheckingIfUsernameIsAvailable");
 		query.setParameter("uname", username);
-		List<UserAccount> AccountList = query.getResultList();
-		for(UserAccount useraccount : AccountList){
+		List<UserAccount> accountList = query.getResultList();
+		for(UserAccount useraccount : accountList){
 			if(username.equals(useraccount.getUser()))
 				return true;
 		}

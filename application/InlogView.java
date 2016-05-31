@@ -35,6 +35,7 @@ public class InlogView extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Text wrongLogin = new Text("Wrong username/password");
+		wrongLogin.setVisible(false);
 		
 		BorderPane layout = new BorderPane();
 

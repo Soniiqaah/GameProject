@@ -29,7 +29,6 @@ public class GameStage extends Application { // TODO ta bort extends Application
 	public static final int FRAME_RATE = 100; // Used to calculate the speed of
 												// the ball and in Ball to
 												// animate
-
 	private Ball ball;
 	private double clickedXCoord;
 	private double clickedYCoord;
@@ -86,8 +85,7 @@ public class GameStage extends Application { // TODO ta bort extends Application
 		 */
 		playingField.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
 			if (ballsLeftToPlay == 0) {
-				// "Nu är spelet slut!" TODO
-				return;
+				return; // The game is over, no more balls to play
 			}
 			resultsExpected++;
 			ballsLeftToPlay--;
@@ -150,35 +148,49 @@ public class GameStage extends Application { // TODO ta bort extends Application
 	}
 
 	/**
-	 * TODO
+	 * setBallPoints(int ballPoints)
 	 * 
+	 * Decrements the number of results left to expect, when 0 no ball is in
+	 * play
 	 * 
-	 * @param ballPoints
+	 * Accumulates the number of poits collected by the player
+	 * 
+	 * Sends the latest number of points to infopane
+	 * 
+	 * Check if all balls are played and their point accounted for, if so the
+	 * variable used to represent the gamelevel (the number of balls to be used in
+	 * the game is the level) is set and infoPane gets called to write the result. The result
+	 * is also saved to the database.
+	 * 
+	 * @param ballPoints - an int, the number of points for one ball 
 	 */
 	public void setBallPoints(int ballPoints) {
 		resultsExpected--;
 		sumOfBalls += ballPoints;
 		infoPane.setBallPoints(ballPoints);
-//		System.out.println("bollpo�ng: " + ballPoints + " summa: " + sumOfBalls);
+		System.out.println("bollpo�ng: " + ballPoints + " summa: " + sumOfBalls); // TODO
+																					// dummy
 		if (resultsExpected == 0 && ballsLeftToPlay == 0) {
 			int level = ballsToBePlayed;
-//			saveResultToDB(sumOfBalls, level);
+			// saveResultToDB(sumOfBalls, level);
 			infoPane.WriteResults();
 		}
 	}
 
 	/**
-	 * TODO
+	 * saveResultToDB(int sumPoints, int level)
 	 * 
-	 * @param sumPoints
-	 * @param level
+	 * Get the identity of the current player and sets the result and gamelevel for the game in the database
+	 * 
+	 * @param sumPoints - an int, the sum of points in a game
+	 * @param level - an int, the number of balls to be used in a game
 	 */
-//	public void saveResultToDB(int sumPoints, int level) {
-//		UserAccount user = InlogView.getCurrentUser();
-//		GetNSetDb gsdb = new GetNSetDb();
-//		// gsdb.setResult(user, sumPoints, level); TODO Hard wired...
-//		gsdb.setResult(user, sumPoints, gameLevel);
-//	}
+	// public void saveResultToDB(int sumPoints, int level) {
+	// UserAccount user = InlogView.getCurrentUser();
+	// GetNSetDb gsdb = new GetNSetDb();
+	// // gsdb.setResult(user, sumPoints, level); TODO Hard wired...
+	// gsdb.setResult(user, sumPoints, gameLevel);
+	// }
 
 	/**
 	 * TODO SKA BARA VAR P� ETT ST�LLE!!!!!!!!!!!!!!!!!!!! InlogView?

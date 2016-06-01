@@ -13,26 +13,30 @@ import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * 
+ * @author Jannike
+ *
+ *         Class to communicate with the user and provide information about the
+ *         game
+ * 
+ *         Displays the mapping between colour of a zone and the points the
+ *         player gets when a ball stops in it
+ */
 public class InfoPane extends GridPane {
-
-	// rita ut vilka po�ng de olika f�rgerna p� zoner betyder, L�GST PRIORITET
-	// lablar, textrutor etc f�r info och dialog
-	// dialog f�r val av antal bollar
 
 	private ComboBox<String> optionsCBox;
 	private int numOfBallsToBePlayed;
 	private GameStage gameStage;
 	private int latestPoints;
 	private int sumOfBallPoints = 0;
-	private Label resultOutPut;
+	private Label resultOutPut = new Label();
 
 	public InfoPane(GameStage gameStage) {
 		this.gameStage = gameStage;
@@ -42,17 +46,7 @@ public class InfoPane extends GridPane {
 		Button numOfBallsDecided = new Button("OK");
 		GridPane pointsColorGrid = new GridPane();
 		int totalSum = 0;
-		// Label pointsSoFar = new Label("Poäng i pågående spel: "); TODO
-		// Label outputPointsSoFar = new Label("" + totalSum);
-		// Label ballsLeftToPlayHeadline = new Label("Antal bollar kvar att
-		// spela: ");
-		// Label outputBallsLeftToPlay = new Label();
 		int numOfBallsLeftToPlay = 0;
-		Label resultOutPut = new Label();
-		// int numOfBallsPlayed = 0; //TODO preperation for future enhancment
-		// TextArea highscoreHeadline = new TextArea(
-		// "Highscore för " + numOfBallsPlayed + " spelade bollar:");
-		// TextArea highscoreResults = new TextArea();
 		setHgap(10);
 		setVgap(10);
 		// TODO fonts, padding etc
@@ -68,7 +62,8 @@ public class InfoPane extends GridPane {
 		add(numOfBallsDecided, 8, 2, 1, 1);
 		add(pointsColorGrid, 0, 4, 9, 2);
 		setPointsColorGrid(pointsColorGrid);
-		// add(pointsSoFar, 0, 7, 3, 1); //TODO preperation for future enhancment
+		// add(pointsSoFar, 0, 7, 3, 1); //TODO preperation for future
+		// enhancment
 		// add(outputPointsSoFar, 5, 7, 2, 1);
 		// fler komponenter ska adderas
 
@@ -153,8 +148,13 @@ public class InfoPane extends GridPane {
 	}
 
 	public void WriteResults() {
+		System.out.println("A");
+		System.out.println("sumOfBallPoints: " + sumOfBallPoints);
 		resultOutPut.setText("Spelet är slut. Du fick " + sumOfBallPoints + " poäng.");
+		System.out.println("B");
+
 		add(resultOutPut, 0, 9, 6, 1);
+		System.out.println("C");
 
 	}
 

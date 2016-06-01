@@ -34,6 +34,8 @@ public class InlogView extends Application {
 	private String alertmsg = "";
 	private List<UserAccount> allUsers;
 	private static UserAccount user;
+	private GameStage game new GameStage();
+	private AccountView createAccount;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -69,6 +71,7 @@ public class InlogView extends Application {
 		
 		Menu fileStatistics = new Menu("Result");
 		MenuItem resultItem = new MenuItem("View Highscore");
+		
 
 		fileHelp.getItems().addAll(rulesItem);
 
@@ -98,6 +101,11 @@ public class InlogView extends Application {
 		TextField txtPw = new TextField("");
 		center.setTopAnchor(txtPw, 90.0);
 		center.setLeftAnchor(txtPw, 10.0);
+		
+		TextField txtrules = new TextField("");
+		center.setTopAnchor(txtrules, 120.0);
+		center.setLeftAnchor(txtrules, 10.0);
+		
 		/**
 		 * Creating buttons for ok and account
 		 */
@@ -124,9 +132,8 @@ public class InlogView extends Application {
 		okbutton.setOnAction(event -> {
 			user = loginUser(txtUser.getText(), txtPw.getText());
 			if (user != null) {
-				okbutton.setText("Log out");
-				okbutton.setOnAction(e -> Platform.exit());
-				wrongLogin.setVisible(false);
+				game(primaryStage);
+			
 			} else {
 				wrongLogin.setVisible(true);
 			}

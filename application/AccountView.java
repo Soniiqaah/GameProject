@@ -30,7 +30,7 @@ import javafx.stage.Stage;
  *
  */
 
-public class AccountView extends Application {
+public class AccountView {
 	/**
 	 * Declare instance variables
 	 */
@@ -39,8 +39,7 @@ public class AccountView extends Application {
 	private String confirmpass;
 	private String alertmsg = "";
 
-	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public AccountView (Stage primaryStage) throws Exception {
 		/**
 		 * Creating a fault printout text and setting it to false
 		 */
@@ -181,12 +180,4 @@ public class AccountView extends Application {
 		}
 		return false;
 	}
-/**
- * 
- * @param args Main method
- */
-	public static void main(String[] args) {
-		Application.launch(args);
-	}
-
 }

@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  *         visual feedback of how many balls taht are left to play
  *
  */
-public class GameStage extends Application { // TODO ta bort extends Application
+public class GameStage { // TODO ta bort extends Application
 	public static final int FRAME_RATE = 100; // Used to calculate the speed of
 												// the ball and in Ball to
 												// animate
@@ -56,7 +56,7 @@ public class GameStage extends Application { // TODO ta bort extends Application
 	 * 
 	 * The different parts of the game are put together
 	 */
-	public void start(Stage primaryStage) {
+	public GameStage (Stage primaryStage) {
 
 		BorderPane pane = new BorderPane();
 		Scene scene = new Scene(pane, 880, 650);
@@ -190,14 +190,5 @@ public class GameStage extends Application { // TODO ta bort extends Application
 	// // gsdb.setResult(user, sumPoints, level); TODO Hard wired...
 	// gsdb.setResult(user, sumPoints, gameLevel);
 	// }
-
-	/**
-	 * TODO SKA BARA VAR P� ETT ST�LLE!!!!!!!!!!!!!!!!!!!! InlogView?
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		launch(args);
-	}
 
 }

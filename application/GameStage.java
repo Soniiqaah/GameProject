@@ -162,7 +162,7 @@ public class GameStage extends Application { // TODO ta bort extends Application
 //		System.out.println("bollpo�ng: " + ballPoints + " summa: " + sumOfBalls);
 		if (resultsExpected == 0 && ballsLeftToPlay == 0) {
 			int level = ballsToBePlayed;
-			saveResultToDB(sumOfBalls, level);
+//			saveResultToDB(sumOfBalls, level);
 			infoPane.WriteResults();
 		}
 	}
@@ -173,12 +173,12 @@ public class GameStage extends Application { // TODO ta bort extends Application
 	 * @param sumPoints
 	 * @param level
 	 */
-	public void saveResultToDB(int sumPoints, int level) {
-		UserAccount user = InlogView.getCurrentUser();
-		GetNSetDb gsdb = new GetNSetDb();
-		// gsdb.setResult(user, sumPoints, level); TODO Hard wired...
-		gsdb.setResult(user, sumPoints, gameLevel);
-	}
+//	public void saveResultToDB(int sumPoints, int level) {
+//		UserAccount user = InlogView.getCurrentUser();
+//		GetNSetDb gsdb = new GetNSetDb();
+//		// gsdb.setResult(user, sumPoints, level); TODO Hard wired...
+//		gsdb.setResult(user, sumPoints, gameLevel);
+//	}
 
 	/**
 	 * TODO SKA BARA VAR P� ETT ST�LLE!!!!!!!!!!!!!!!!!!!! InlogView?

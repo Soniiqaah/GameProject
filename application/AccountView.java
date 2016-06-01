@@ -57,19 +57,17 @@ public class AccountView extends Application {
 		 */
 		MenuBar menuBar = new MenuBar();
 
-		Menu fileMenu = new Menu("Edit");
-		MenuItem saveItem = new MenuItem("Save");
-		MenuItem loadItem = new MenuItem("Open");
-		MenuItem exitItem = new MenuItem("Close Program");
+		Menu fileMenu = new Menu("Close program");
+		MenuItem exitItem = new MenuItem("Close");
 /**
  * Getting the items
  */
-		fileMenu.getItems().addAll(saveItem, loadItem, exitItem);
+		fileMenu.getItems().addAll(exitItem);
 
 		Menu fileHelp = new Menu("Help");
-		MenuItem aboutItem = new MenuItem("About");
+		MenuItem rulesItem = new MenuItem("Game rules");
 
-		fileHelp.getItems().addAll(aboutItem);
+		fileHelp.getItems().addAll(rulesItem);
 /**
  * Setting the menu at the top
  */
@@ -131,7 +129,7 @@ public class AccountView extends Application {
 		// Closing the program.
 		exitItem.setOnAction(e -> Platform.exit());
 
-		aboutItem.setOnAction(e -> {
+		rulesItem.setOnAction(e -> {
 
 			Alert aboutMessage = new Alert(AlertType.INFORMATION, "Create an account");
 			aboutMessage.showAndWait();

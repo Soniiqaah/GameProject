@@ -43,7 +43,7 @@ public class InlogView extends Application {
 		 */
 		Text wrongLogin = new Text("Wrong username/password");
 		wrongLogin.setVisible(false);
-
+		
 		/**
 		 * Declaring a Borderpane layout and inside a Anchorpane
 		 */
@@ -57,7 +57,7 @@ public class InlogView extends Application {
 		MenuBar menuBar = new MenuBar();
 
 		Menu fileMenu = new Menu("Close program");
-		MenuItem exitItem = new MenuItem("Close program");
+		MenuItem exitItem = new MenuItem("Close");
 		/**
 		 * Getting the item exit and creating menu tabs for help, about, result
 		 * and highscore.
@@ -65,12 +65,12 @@ public class InlogView extends Application {
 		fileMenu.getItems().add(exitItem);
 
 		Menu fileHelp = new Menu("Help");
-		MenuItem aboutItem = new MenuItem("About");
-
+		MenuItem rulesItem = new MenuItem("Rules of the Game");
+		
 		Menu fileStatistics = new Menu("Result");
 		MenuItem resultItem = new MenuItem("View Highscore");
 
-		fileHelp.getItems().addAll(aboutItem);
+		fileHelp.getItems().addAll(rulesItem);
 
 		fileStatistics.getItems().addAll(resultItem);
 
@@ -113,12 +113,7 @@ public class InlogView extends Application {
 		 */
 		center.setTopAnchor(wrongLogin, 130.0);
 		center.setLeftAnchor(wrongLogin, 10.0);
-
-		/*
-		 * accbutton.setOnAction(event ->{
-		 * 
-		 * });
-		 */
+		
 		/**
 		 * Creating an event that is checking if loginuser is available and
 		 * changing the ok button after the user has logged in into "logout".
@@ -160,12 +155,10 @@ public class InlogView extends Application {
 		 */
 		exitItem.setOnAction(e -> Platform.exit());
 
-		aboutItem.setOnAction(e -> {
-
-			Alert aboutMessage = new Alert(AlertType.INFORMATION, "Create an account");
-			aboutMessage.showAndWait();
+		rulesItem.setOnAction(e -> {
 
 		});
+		
 	}
 
 	/**

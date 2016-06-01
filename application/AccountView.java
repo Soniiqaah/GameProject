@@ -39,7 +39,9 @@ public class AccountView {
 	private String confirmpass;
 	private String alertmsg = "";
 
-	public AccountView (Stage primaryStage) throws Exception {
+
+	public AccountView (Stage primaryStage) {
+		
 		/**
 		 * Creating a fault printout text and setting it to false
 		 */
@@ -113,9 +115,11 @@ public class AccountView {
 				notValidUname.setVisible(true);
 			} else {
 				notValidUname.setVisible(false);
+				InlogView inlog = new InlogView(primaryStage);
 			}
 
 		});
+		
 
 		layout.setCenter(center);
 		center.getChildren().addAll(label, label1, okbutton, txtUser, account, txtPw, notValidUname);

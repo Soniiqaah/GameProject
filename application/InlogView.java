@@ -34,12 +34,10 @@ public class InlogView extends Application {
 	private String alertmsg = "";
 	private List<UserAccount> allUsers;
 	private static UserAccount user;
-	private GameStage game new GameStage();
-	private AccountView createAccount;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
+		
 		/**
 		 * Creating a fault printout text and setting it to visible false
 		 */
@@ -132,12 +130,17 @@ public class InlogView extends Application {
 		okbutton.setOnAction(event -> {
 			user = loginUser(txtUser.getText(), txtPw.getText());
 			if (user != null) {
-				game(primaryStage);
+				GameStage game = new GameStage(primaryStage);
 			
 			} else {
 				wrongLogin.setVisible(true);
 			}
 
+		});
+		
+		accbutton.setOnAction(event -> {
+			AccountView createAccount = new AccountView(primaryStage);
+			
 		});
 
 		/**

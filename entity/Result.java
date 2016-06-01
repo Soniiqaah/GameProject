@@ -53,7 +53,7 @@ public class Result {
 
 	}
 
-	public UserAccount getAccounts() {
+	public UserAccount getAccount() {
 		return account;
 
 	}

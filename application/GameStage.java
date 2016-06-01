@@ -59,7 +59,7 @@ public class GameStage extends Application { // TODO ta bort extends Application
 	public void start(Stage primaryStage) {
 
 		BorderPane pane = new BorderPane();
-		Scene scene = new Scene(pane, 850, 650);
+		Scene scene = new Scene(pane, 880, 650);
 		Label topLabel = new Label("Plats f�r menyer"); // Dummykod
 		infoPane = new InfoPane(this);
 		pane.setTop(topLabel);

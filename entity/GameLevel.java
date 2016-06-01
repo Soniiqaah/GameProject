@@ -25,47 +25,32 @@ public class GameLevel {
 	/**
 	 * declare instance variables
 	 */
-
 	private int numOfTryOuts;
-	private int points;
-	
-	@ManyToOne
-	/**
-	 * 
-	 */
-	private GameLevel gamelevel;
 
 	public GameLevel() {
 
 	}
-/**
- * 
- * @param numOfTryOuts
- */
-	public GameLevel(int numOfTryOuts, int points) {
+
+	/**
+	 * 
+	 * @param numOfTryOuts
+	 */
+	public GameLevel(int numOfTryOuts) {
 		this.numOfTryOuts = numOfTryOuts;
-		this.points = points;
-	
+
 	}
-	
-/**
- * 
- * @return
- */
+
+	/**
+	 * 
+	 * @return get and set methods
+	 */
 
 	public int getNumOfTryOuts() {
 		return numOfTryOuts;
 	}
 
-	public void setNumOfTryOuts() {
-
-	}
-	public int getPoints() {
-		return points;
-	}
-
-	public void setPoints(String points) {
-
+	public void setNumOfTryOuts(int numOfTryOuts) {
+		this.numOfTryOuts = numOfTryOuts;
 	}
 
 }

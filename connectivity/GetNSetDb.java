@@ -17,9 +17,14 @@ import javax.persistence.EntityManagerFactory;
  */
 public class GetNSetDb {
 	private EntityManager em;
+	/**
+	 *  creating the GetNSetdb method with persistence
+	 */
 
 	public GetNSetDb() {
-
+/**
+ * creating EntityManagerFactory
+ */
 		em = Persistence.createEntityManagerFactory("Eclipselink_JPA").createEntityManager();
 	}
 
@@ -37,30 +42,40 @@ public class GetNSetDb {
 		List<Result> allResults = em.createQuery("Select r from Result r").getResultList();
 		return allResults;
 	}
+	public List<Result> getSortedResults(int level){
+		List<Result> sortedResults = em.createQuery("Select r from Result r where r.gamelevel = :level order by points desc").setParameter("level",level).getResultList();
+		return sortedResults;
+	}
+	public GameLevel getGameLevel(int level) {
+	GameLevel gameLevel= (GameLevel) em.createQuery("Select g from GameLevel g where g.numOfTryOuts = :level").setParameter("level", level).getSingleResult();
+	
+	return gameLevel;
+
+	}
+	
 
 	
-	public List<Result> setResult(UserAccount user, levelId){
+	public void setResult(UserAccount user, int points, int level){
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eclipselink_JPA");
 			EntityManager em = emf.createEntityManager();
-				
+			GameLevel gameLevel = getGameLevel(level);
+			
 			Result result = new Result();
-				result.getResultId();
-				user.setPassword(password);
+				result.setAccount(user);
+				result.setPoints(points);
+				result.setGameLevel(gameLevel);
 
 				em.getTransaction().begin();
-				em.persist(user);
+				em.persist(result);
 
 				em.getTransaction().commit();
 				em.close();
 				emf.close();
-				return true;
+				
 			em.close();
 			emf.close();
-			return false;
 
 		}
-		
-		
-	
+	}
 
 

@@ -23,12 +23,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 /**
  * 
- * @author Soniiqaah
+ * @author Soniiqaah Creating a class AccountView that extends from Application.
  *
  */
+
 public class AccountView extends Application {
+	/**
+	 * Declare instance variables
+	 */
 	private String username;
 	private String password;
 	private String confirmpass;
@@ -36,31 +41,43 @@ public class AccountView extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+		/**
+		 * Creating a fault printout text and setting it to false
+		 */
 		Text notValidUname = new Text("The username is already in use, please choose another one");
 		notValidUname.setVisible(false);
-
+		/**
+		 * Declaring a Borderpane layout and inside a Anchorpane
+		 */
 		BorderPane layout = new BorderPane();
 
 		AnchorPane center = new AnchorPane();
-
+		/**
+		 * Creating a Menubar and menuitems
+		 */
 		MenuBar menuBar = new MenuBar();
 
 		Menu fileMenu = new Menu("Edit");
 		MenuItem saveItem = new MenuItem("Save");
 		MenuItem loadItem = new MenuItem("Open");
 		MenuItem exitItem = new MenuItem("Close Program");
-
+/**
+ * Getting the items
+ */
 		fileMenu.getItems().addAll(saveItem, loadItem, exitItem);
 
 		Menu fileHelp = new Menu("Help");
 		MenuItem aboutItem = new MenuItem("About");
 
 		fileHelp.getItems().addAll(aboutItem);
-
+/**
+ * Setting the menu at the top
+ */
 		menuBar.getMenus().addAll(fileMenu, fileHelp);
 		layout.setTop(menuBar);
-
+/**
+ * Creating labels and setting the position
+ */
 		Label account = new Label("Create an account");
 		center.setRightAnchor(account, 60.0);
 		center.setLeftAnchor(account, 180.0);
@@ -72,7 +89,9 @@ public class AccountView extends Application {
 		Label label = new Label("Password");
 		center.setTopAnchor(label, 70.0);
 		center.setLeftAnchor(label, 10.0);
-
+/**
+ * Creating textfields and setting the position
+ */
 		TextField txtUser = new TextField("");
 		center.setTopAnchor(txtUser, 30.0);
 		center.setLeftAnchor(txtUser, 10.0);
@@ -84,18 +103,22 @@ public class AccountView extends Application {
 		Button okbutton = new Button("OK");
 		center.setTopAnchor(okbutton, 350.0);
 		center.setLeftAnchor(okbutton, 330.0);
-		
+
+		center.setTopAnchor(notValidUname, 130.0);
+		center.setLeftAnchor(notValidUname, 10.0);
+/**
+ * 
+ */
 		okbutton.setOnAction(event -> {
 			boolean accountIsCreated = addUserAccount(txtUser.getText(), txtPw.getText());
-		
-			if(accountIsCreated == false){
+
+			if (accountIsCreated == false) {
 				notValidUname.setVisible(true);
-			}else{
+			} else {
 				notValidUname.setVisible(false);
 			}
-			
-			}
-			);
+
+		});
 
 		layout.setCenter(center);
 		center.getChildren().addAll(label, label1, okbutton, txtUser, account, txtPw, notValidUname);
@@ -105,7 +128,7 @@ public class AccountView extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		// Platform.exit() kallas för att stänga programmet.
+		// Closing the program.
 		exitItem.setOnAction(e -> Platform.exit());
 
 		aboutItem.setOnAction(e -> {
@@ -116,7 +139,12 @@ public class AccountView extends Application {
 		});
 
 	}
-
+/**
+ * 
+ * @param username
+ * @param password
+ * @return
+ */
 	public boolean addUserAccount(String username, String password) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Eclipselink_JPA");
 		EntityManager em = emf.createEntityManager();
@@ -138,17 +166,27 @@ public class AccountView extends Application {
 		return false;
 
 	}
-	public boolean checkDouble(String username, EntityManager em){
+	/**
+	 * 
+	 * @param username
+	 * @param em
+	 * @return
+	 */
+
+	public boolean checkDouble(String username, EntityManager em) {
 		Query query = em.createNamedQuery("CheckingIfUsernameIsAvailable");
 		query.setParameter("uname", username);
 		List<UserAccount> accountList = query.getResultList();
-		for(UserAccount useraccount : accountList){
-			if(username.equals(useraccount.getUser()))
+		for (UserAccount useraccount : accountList) {
+			if (username.equals(useraccount.getUser()))
 				return true;
 		}
 		return false;
-	} 
-
+	}
+/**
+ * 
+ * @param args Main method
+ */
 	public static void main(String[] args) {
 		Application.launch(args);
 	}

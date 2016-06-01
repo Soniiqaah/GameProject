@@ -24,7 +24,7 @@ import javax.persistence.Table;
 @NamedQuery(query = "Select user from UserAccount user where user.username = :uname", name ="CheckingIfUsernameIsAvailable"),
 
 })
-@Table
+
 public class UserAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -52,7 +52,7 @@ public class UserAccount {
 	}
 	/**
 	 * 
-	 * @return
+	 * @return get and set methods
 	 */
 
 	public String getUser() {
@@ -68,6 +68,7 @@ public class UserAccount {
 	}
 
 	public void setPassword(String userpw) {
+		this.userpw = userpw;
 	}
 
 }

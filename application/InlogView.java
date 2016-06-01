@@ -23,8 +23,7 @@ import entity.UserAccount;
 
 /**
  * 
- * @author Soniiqaah
- *Creating a class InlogView that extends from Application.
+ * @author Soniiqaah Creating a class InlogView that extends from Application.
  */
 public class InlogView extends Application {
 	/**
@@ -35,11 +34,10 @@ public class InlogView extends Application {
 	private String alertmsg = "";
 	private List<UserAccount> allUsers;
 	private static UserAccount user;
-	
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+
 		/**
 		 * Creating a fault printout text and setting it to visible false
 		 */
@@ -52,7 +50,7 @@ public class InlogView extends Application {
 		BorderPane layout = new BorderPane();
 
 		AnchorPane center = new AnchorPane();
-		
+
 		/**
 		 * Creating a Menubar and menuitems
 		 */
@@ -61,8 +59,8 @@ public class InlogView extends Application {
 		Menu fileMenu = new Menu("Close program");
 		MenuItem exitItem = new MenuItem("Close program");
 		/**
-		 * Getting the item exit and creating menu tabs for
-		 * help, about, result and highscore.
+		 * Getting the item exit and creating menu tabs for help, about, result
+		 * and highscore.
 		 */
 		fileMenu.getItems().add(exitItem);
 
@@ -158,7 +156,7 @@ public class InlogView extends Application {
 		primaryStage.show();
 
 		/**
-		 * Closing the program 
+		 * Closing the program
 		 */
 		exitItem.setOnAction(e -> Platform.exit());
 
@@ -189,10 +187,11 @@ public class InlogView extends Application {
 		return null;
 
 	}
-	public static UserAccount getCurrentUser(){
+
+	public static UserAccount getCurrentUser() {
 		return user;
 	}
-	
+
 	/**
 	 * 
 	 * @param args

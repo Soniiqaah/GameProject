@@ -168,16 +168,15 @@ public class GameStage extends Application { // TODO ta bort extends Application
 		resultsExpected--;
 		sumOfBalls += ballPoints;
 		infoPane.setBallPoints(ballPoints);
-		System.out.println("bollpo�ng: " + ballPoints + " summa: " + sumOfBalls); // TODO
-																					// dummy
 		if (resultsExpected == 0 && ballsLeftToPlay == 0) {
 			int level = ballsToBePlayed;
-			// saveResultToDB(sumOfBalls, level);
+			// saveResultToDB(sumOfBalls, level); TODO to be used when connection with the database works
 			infoPane.WriteResults();
 		}
 	}
 
 	/**
+	 * TODO to be used when connection with the database works
 	 * saveResultToDB(int sumPoints, int level)
 	 * 
 	 * Get the identity of the current player and sets the result and gamelevel for the game in the database

@@ -23,8 +23,8 @@ import javafx.scene.text.Text;
  * 
  * @author Jannike
  *
- *         Class to communicate with the user and provide information about the
- *         game
+ *         Class to communicate with the user, provide information about the
+ *         game and displaying the result
  * 
  *         Displays the mapping between colour of a zone and the points the
  *         player gets when a ball stops in it
@@ -38,34 +38,32 @@ public class InfoPane extends GridPane {
 	private int sumOfBallPoints = 0;
 	private Label resultOutPut = new Label();
 
+	/**
+	 * Constructor
+	 * 
+	 * @param gameStage
+	 */
 	public InfoPane(GameStage gameStage) {
 		this.gameStage = gameStage;
 		optionsCBox = new ComboBox<String>();
 		Text title = new Text("Skeeball");
-		Text introQuestion = new Text("Hur många bollar vill du spela?");
+		Text introQuestion = new Text("How many balls do you want to play?");
 		Button numOfBallsDecided = new Button("OK");
 		GridPane pointsColorGrid = new GridPane();
 		int totalSum = 0;
 		int numOfBallsLeftToPlay = 0;
 		setHgap(10);
 		setVgap(10);
-		// TODO fonts, padding etc
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 40));
 		add(title, 0, 0, 9, 1);
 		setHalignment(title, HPos.CENTER);
 		introQuestion.setFont(Font.font("Arial", 18));
 		add(introQuestion, 0, 2, 5, 1);
-		optionsCBox.getItems().addAll("3", "5", "7"); // TODO available levels
-														// to be collected from
-														// the database
+		optionsCBox.getItems().addAll("3", "5", "7");
 		add(optionsCBox, 6, 2, 2, 1);
 		add(numOfBallsDecided, 8, 2, 1, 1);
 		add(pointsColorGrid, 0, 4, 9, 2);
 		setPointsColorGrid(pointsColorGrid);
-		// add(pointsSoFar, 0, 7, 3, 1); //TODO preperation for future
-		// enhancment
-		// add(outputPointsSoFar, 5, 7, 2, 1);
-		// fler komponenter ska adderas
 
 		numOfBallsDecided.setOnAction(event -> {
 			numOfBallsToBePlayed = getNumOfBallsToBePlayed();
@@ -74,26 +72,49 @@ public class InfoPane extends GridPane {
 		});
 	}
 
+	/**
+	 * getNumOfBallsToBePlayed()
+	 * 
+	 * Gets the value chosen in the combobox
+	 * 
+	 * @return - an int, the number of ball that will be used in the game, the
+	 *         same as level
+	 */
 	public int getNumOfBallsToBePlayed() {
 		return Integer.parseInt(optionsCBox.getValue());
 	}
 
+	/**
+	 * setBallPoints(int ballPoints)
+	 * 
+	 * Gets the points from the latest ball played and accumulates the sum
+	 * 
+	 * @param ballPoints
+	 *            - an int, the points from the latest ball played
+	 */
 	public void setBallPoints(int ballPoints) {
 		latestPoints = ballPoints;
 		sumOfBallPoints += ballPoints;
 	}
 
+	/**
+	 * setPointsColorGrid(GridPane gPane)
+	 * 
+	 * Creates the grid presenting the mapping between the colours of a zone and
+	 * the point value of the zone
+	 * 
+	 * 
+	 * 
+	 * @param gPane
+	 *            - a GridPane
+	 */
 	private void setPointsColorGrid(GridPane gPane) {
-		// TODO loopa kod istället, paddin, margin, border,...
 		double paneWidth = 25.0;
 		double paneHeight = 30.0;
 		Label labelColor = new Label("Color: ");
 		labelColor.setMinSize(45, 30);
 		Label labelPoints = new Label("Points: ");
 		labelPoints.setMinSize(45, 30);
-
-		// array färger
-		// array poängtalen
 		Pane pane1 = new Pane();
 		pane1.setStyle("-fx-background-color: Aquamarine;");
 		pane1.setMinSize(paneWidth, paneHeight);
@@ -147,17 +168,29 @@ public class InfoPane extends GridPane {
 
 	}
 
+	/**
+	 * WriteResults()
+	 * 
+	 * When the game is finished the result is displayed
+	 * 
+	 */
 	public void WriteResults() {
-		System.out.println("A");
-		System.out.println("sumOfBallPoints: " + sumOfBallPoints);
-		resultOutPut.setText("Spelet är slut. Du fick " + sumOfBallPoints + " poäng.");
-		System.out.println("B");
-
+		resultOutPut.setText("The game is over. You got " + sumOfBallPoints + " points.");
 		add(resultOutPut, 0, 9, 6, 1);
-		System.out.println("C");
-
 	}
 
+	/**
+	 * getHighscoreList(int level)
+	 * 
+	 * Creates a highscore list for the gamelevel currently choosed
+	 * 
+	 * Not currently in use, awaiting other parts of the program to be working
+	 * 
+	 * @param level
+	 *            - an int, represents the gamelevel, is the number of balls to
+	 *            be played
+	 * @return a GridPane - the highscore list in a gridpane format
+	 */
 	private GridPane getHighscoreList(int level) {
 		GetNSetDb gsdb = new GetNSetDb();
 		GridPane highScorePane = new GridPane();

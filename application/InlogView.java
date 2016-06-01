@@ -66,16 +66,12 @@ public class InlogView extends Application {
 
 		Menu fileHelp = new Menu("Help");
 		MenuItem rulesItem = new MenuItem("Rules of the Game");
-		
-		Menu fileStatistics = new Menu("Result");
-		MenuItem resultItem = new MenuItem("View Highscore");
-		
 
 		fileHelp.getItems().addAll(rulesItem);
 
-		fileStatistics.getItems().addAll(resultItem);
+		
 
-		menuBar.getMenus().addAll(fileMenu, fileHelp, fileStatistics);
+		menuBar.getMenus().addAll(fileMenu, fileHelp);
 		layout.setTop(menuBar);
 		/**
 		 * Creating labels and textfields for header, username, password.
@@ -164,6 +160,7 @@ public class InlogView extends Application {
 		 * Closing the program
 		 */
 		exitItem.setOnAction(e -> Platform.exit());
+		
 
 		rulesItem.setOnAction(e -> {
 

@@ -41,7 +41,7 @@ public class AccountView {
 
 
 	public AccountView (Stage primaryStage) {
-		
+		Scene loginScene = primaryStage.getScene();
 		/**
 		 * Creating a fault printout text and setting it to false
 		 */
@@ -67,12 +67,15 @@ public class AccountView {
 
 		Menu fileHelp = new Menu("Help");
 		MenuItem rulesItem = new MenuItem("Game rules");
+		
+		Menu fileLogout = new Menu("Log out");
+		
 
 		fileHelp.getItems().addAll(rulesItem);
 /**
  * Setting the menu at the top
  */
-		menuBar.getMenus().addAll(fileMenu, fileHelp);
+		menuBar.getMenus().addAll(fileMenu, fileHelp,fileLogout);
 		layout.setTop(menuBar);
 /**
  * Creating labels and setting the position
@@ -115,7 +118,8 @@ public class AccountView {
 				notValidUname.setVisible(true);
 			} else {
 				notValidUname.setVisible(false);
-				InlogView inlog = new InlogView(primaryStage);
+				primaryStage.setScene(loginScene);
+				primaryStage.show();
 			}
 
 		});

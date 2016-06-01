@@ -10,7 +10,7 @@ import javafx.util.Duration;
  * 
  * @author Jannike
  *
- *         A class that represents a ball and its functions
+ *         A class that represents a ball, and its functions
  */
 public class Ball extends Circle {
 	private double dx, dy;
@@ -33,8 +33,8 @@ public class Ball extends Circle {
 		this.pfWidth = playingField.getWidth();
 		this.pfHeight = playingField.getHeight();
 		this.gameStage = gameStage;
-		this.dx = dx;
-		this.dy = dy;
+		this.dx = dx; // sets the x component of the speed
+		this.dy = dy; // sets the y component of the speed
 		setFill(color);
 	}
 
@@ -42,13 +42,12 @@ public class Ball extends Circle {
 	 * moveBall() based on
 	 * http://www.cs.armstrong.edu/liang/intro10e/html/MultipleBounceBall.html
 	 * 
-	 * The method handles speed and direction of the ball TODO bättre
-	 * formulering
+	 * The method handles speed and direction of the ball 
 	 * 
 	 * Sets a variable to true when the ball stops
 	 * 
 	 */
-	protected void moveBall() {
+	private void moveBall() {
 
 		if ((getCenterX() < getRadius()) && (dx < 0)) {
 			dx *= -1; // change direction when hitting the left wall
@@ -80,6 +79,8 @@ public class Ball extends Circle {
 	}
 
 	/**
+	 * whenBallStopped()
+	 * 
 	 * When the ball has stopped moving it gets a black border.
 	 * 
 	 * If it stopped in a zone the color of the ball is changed.
@@ -95,25 +96,27 @@ public class Ball extends Circle {
 	}
 
 	/**
-	 * TODO
+	 * isBallStopped()
 	 * 
-	 * @return
+	 * @return a Boolean, set to true if the ball has stopped
 	 */
-	public boolean isBallStopped() {
+	private boolean isBallStopped() {
 		return isBallStopped;
 	}
 
 	/**
-	 * TODO
+	 * isInAZone()
 	 * 
-	 * @return
+	 * @returna a Boolean, set to true if the ball is in a zone
 	 */
 	public boolean isInAZone() {
 		return isInAZone;
 	}
 
 	/**
-	 * TODO
+	 * playBall()
+	 * 
+	 * Method calling other methods
 	 */
 	public void playBall() {
 		moveBall();
@@ -138,10 +141,11 @@ public class Ball extends Circle {
 	 * 
 	 * Check if the ball stopped within a zone - if the distance between the
 	 * centre coordinates of the ball and the centre coordinates of the zone is
-	 * shorter than the length of the zone's radius the ball is within the zone
+	 * shorter than the length of the zone's radius the ball is within the zone.
+	 * In other words, the centre of the ball must be inside the zone.
 	 * 
 	 * @param zone
-	 *            - A Zone, a part of the playingfield where the player gets
+	 *            - A Zone, a part of the playingfield where the player will get
 	 *            points if a ball stops there
 	 * @return - A boolean, if the ball stopped in a zone the variable is set to
 	 *         true, else it remains false

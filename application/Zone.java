@@ -34,7 +34,7 @@ public class Zone extends Circle {
 		Color colorName;
 		switch (points) {
 		case 1:
-			colorName = Color.web("Aquamarine");
+			colorName = Color.web("Aquamarine");  //#7FFFD4
 			break;
 		case 3:
 			colorName = Color.web("DarkKhaki"); // #BDB76B

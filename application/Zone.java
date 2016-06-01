@@ -3,20 +3,44 @@ package application;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
+/**
+ * 
+ * @author Jannike
+ *
+ *A class that represents a zone, and its functions
+ */
 public class Zone extends Circle {
 
 	private int points;
 
+	/**
+	 * Constructor
+	 * 
+	 * @param x
+	 * @param y
+	 * @param radius
+	 * @param points
+	 */
 	public Zone(double x, double y, double radius, int points) {
 		super(x, y, radius);
 		this.points = points;
 		setFill(getColor(this.points));
 	}
 
+	/**
+	 * getPoints()
+	 * 
+	 * @return an int
+	 */
 	public int getPoints() {
 		return points;
 	}
 
+	/**
+	 * setPoints(int points)
+	 * 
+	 * @param points
+	 */
 	public void setPoints(int points) {
 		this.points = points;
 	}

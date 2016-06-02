@@ -15,7 +15,7 @@ import javax.persistence.Table;
 /**
  * 
  * @author Soniiqaah
- *
+ * Creating Named Queries
  */
 
 @Entity
@@ -34,7 +34,9 @@ public class UserAccount {
 	private String userpw;
 
 
-	// Empty Constructor
+	/**
+	 * Empty constructor
+	 */
 
 	public UserAccount() {
 
@@ -52,7 +54,7 @@ public class UserAccount {
 	}
 	/**
 	 * 
-	 * @return get and set methods
+	 * @return Getters and Setters
 	 */
 
 	public String getUser() {

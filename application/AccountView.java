@@ -21,6 +21,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -47,6 +48,10 @@ public class AccountView {
 		 */
 		Text notValidUname = new Text("The username is already in use, please choose another one");
 		notValidUname.setVisible(false);
+		/**
+		 * Setting the fault printout to red text
+		 */
+		notValidUname.setFill(Color.RED);
 		/**
 		 * Declaring a Borderpane layout and inside a Anchorpane
 		 */

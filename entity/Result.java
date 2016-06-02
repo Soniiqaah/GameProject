@@ -30,6 +30,10 @@ public class Result {
 
 	@ManyToOne
 	private GameLevel gamelevel;
+	/**
+	 * Getters and Setters
+	 * @return
+	 */
 
 	public int getResultId() {
 		return resultId;

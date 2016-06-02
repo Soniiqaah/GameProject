@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -43,6 +44,10 @@ public class InlogView extends Application {
 		 */
 		Text wrongLogin = new Text("Wrong username/password");
 		wrongLogin.setVisible(false);
+		/**
+		 * Setting the fault printout to red text
+		 */
+		wrongLogin.setFill(Color.RED);
 		
 		/**
 		 * Declaring a Borderpane layout and inside a Anchorpane
@@ -59,20 +64,25 @@ public class InlogView extends Application {
 		Menu fileMenu = new Menu("Close program");
 		MenuItem exitItem = new MenuItem("Close");
 		/**
-		 * Getting the item exit and creating menu tabs for help, about, result
-		 * and highscore.
+		 * Getting the item exit and creating menu tabs for help and highscore.
 		 */
 		fileMenu.getItems().add(exitItem);
 
 		Menu fileHelp = new Menu("Help");
 		MenuItem rulesItem = new MenuItem("How to play");
+		
+		Menu fileHighscore = new Menu("Highscore");
 
 		fileHelp.getItems().addAll(rulesItem);
 
 		
+		/**
+		 * Getting the menus
+		 */
 
-		menuBar.getMenus().addAll(fileMenu, fileHelp);
+		menuBar.getMenus().addAll(fileMenu, fileHelp, fileHighscore);
 		layout.setTop(menuBar);
+		
 		/**
 		 * Creating labels and textfields for header, username, password.
 		 */

@@ -76,7 +76,7 @@ public class InlogView extends Application {
 		/**
 		 * Creating labels and textfields for header, username, password.
 		 */
-		Label header = new Label("Skee-ball");
+		Label header = new Label("Skee Ball");
 		center.setRightAnchor(header, 110.0);
 		center.setLeftAnchor(header, 180.0);
 

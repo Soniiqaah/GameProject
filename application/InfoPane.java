@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.Color;
 import java.awt.TextField;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
@@ -37,6 +39,7 @@ public class InfoPane extends GridPane {
 	private int latestPoints;
 	private int sumOfBallPoints = 0;
 	private Label resultOutPut = new Label();
+	private GridPane highScorePane;
 
 	/**
 	 * Constructor
@@ -45,6 +48,15 @@ public class InfoPane extends GridPane {
 	 */
 	public InfoPane(GameStage gameStage) {
 		this.gameStage = gameStage;
+
+		GetNSetDb gsdb = new GetNSetDb();
+		List<GameLevel> gameLevels = gsdb.getGameLevels();
+		// The gamelevels are set if the database is empty
+		if (gameLevels.isEmpty()) { 
+			gsdb.setGameLevels(new int[] { 3, 5, 7 });
+			gameLevels = gsdb.getGameLevels();
+		}
+
 		optionsCBox = new ComboBox<String>();
 		Text title = new Text("Skeeball");
 		Text introQuestion = new Text("How many balls do you want to play?");
@@ -57,19 +69,33 @@ public class InfoPane extends GridPane {
 		title.setFont(Font.font("Arial", FontWeight.BOLD, 40));
 		add(title, 0, 0, 9, 1);
 		setHalignment(title, HPos.CENTER);
-		introQuestion.setFont(Font.font("Arial", 18));
+		introQuestion.setFont(Font.font("Arial", 14));
 		add(introQuestion, 0, 2, 5, 1);
-		optionsCBox.getItems().addAll("3", "5", "7");
+		for (GameLevel gameLevel : gameLevels) { 
+			optionsCBox.getItems().add("" + gameLevel.getNumOfTryOuts());
+		}
 		add(optionsCBox, 6, 2, 2, 1);
 		add(numOfBallsDecided, 8, 2, 1, 1);
 		add(pointsColorGrid, 0, 4, 9, 2);
 		setPointsColorGrid(pointsColorGrid);
 
+		add(resultOutPut, 0, 9, 6, 1);
+
 		numOfBallsDecided.setOnAction(event -> {
 			numOfBallsToBePlayed = getNumOfBallsToBePlayed();
 			gameStage.setBallsLeftToPlay(numOfBallsToBePlayed);
 			sumOfBallPoints = 0;
+			resultOutPut.setText("");
+			updateHighScoreList();
 		});
+	}
+/**
+ * TODO
+ */
+	private void updateHighScoreList() {
+		getChildren().remove(highScorePane);
+		highScorePane = getHighscoreLists(numOfBallsToBePlayed);
+		add(highScorePane, 0, 10, 8, 1);
 	}
 
 	/**
@@ -102,8 +128,6 @@ public class InfoPane extends GridPane {
 	 * 
 	 * Creates the grid presenting the mapping between the colours of a zone and
 	 * the point value of the zone
-	 * 
-	 * 
 	 * 
 	 * @param gPane
 	 *            - a GridPane
@@ -165,18 +189,18 @@ public class InfoPane extends GridPane {
 		gPane.add(label40, 7, 1);
 		gPane.add(pane50, 8, 0);
 		gPane.add(label50, 8, 1);
-
 	}
 
 	/**
 	 * WriteResults()
 	 * 
-	 * When the game is finished the result is displayed
+	 * When the game is finished the result is displayed and the highscore list is updated
 	 * 
 	 */
 	public void WriteResults() {
 		resultOutPut.setText("The game is over. You got " + sumOfBallPoints + " points.");
-		add(resultOutPut, 0, 9, 6, 1);
+		resultOutPut.setFont((Font.font("Arial", 14)));
+		updateHighScoreList();
 	}
 
 	/**
@@ -184,31 +208,60 @@ public class InfoPane extends GridPane {
 	 * 
 	 * Creates a highscore list for the gamelevel currently choosed
 	 * 
-	 * Not currently in use, awaiting other parts of the program to be working
-	 * 
 	 * @param level
 	 *            - an int, represents the gamelevel, is the number of balls to
-	 *            be played
+	 *            be played at this time
 	 * @return a GridPane - the highscore list in a gridpane format
 	 */
-	private GridPane getHighscoreList(int level) {
+	private GridPane getHighscoreLists(int level) {
+		String uname = InlogView.getCurrentUser().getUser();
+		System.out.println("\n\n\n\n uname: "+ uname);
 		GetNSetDb gsdb = new GetNSetDb();
 		GridPane highScorePane = new GridPane();
 		List<Result> levelResults = gsdb.getSortedResults(level);
+		List<Result> oneUserLevelResults = gsdb.getSortedResultsOneUser(uname, level);
+		Label highscoreHeadline = new Label("Top 10, " + level + " balls");
+		Label highscoreHeadlineOneUser = new Label("Your top 10 results, " + level + " balls");
+		highscoreHeadline.setFont((Font.font("Arial", FontWeight.BOLD, 14)));
+		highscoreHeadlineOneUser.setFont((Font.font("Arial", FontWeight.BOLD, 14)));
 		int i = 0;
+		highScorePane.add(highscoreHeadline, 0, 0, 3, 1);
 		for (Result r : levelResults) {
 			Label placeLabel = new Label();
 			Label usernameLabel = new Label();
 			Label pointsLabel = new Label();
-			placeLabel.setText(i + ".");
+			placeLabel.setText((i + 1) + ".");
 			usernameLabel.setText(r.getAccount().getUser());
 			pointsLabel.setText(String.valueOf(r.getPoints()));
-			highScorePane.add(placeLabel, 0, i);
-			highScorePane.add(usernameLabel, 1, i);
-			highScorePane.add(pointsLabel, 2, i);
+			highScorePane.getColumnConstraints().add(new ColumnConstraints(20));
+			highScorePane.add(placeLabel, 0, i + 1);
+			highScorePane.getColumnConstraints().add(new ColumnConstraints(150));
+			highScorePane.add(usernameLabel, 1, i + 1);
+			highScorePane.getColumnConstraints().add(new ColumnConstraints(50));
+			highScorePane.add(pointsLabel, 2, i + 1);
 			i++;
 		}
+		int j = 0;
+		highScorePane.add(highscoreHeadlineOneUser, 0, 12, 3, 1);
+		for (Result r : oneUserLevelResults) {
+			Label placeLabel = new Label();
+			Label usernameLabel = new Label();
+			Label pointsLabel = new Label();
+			placeLabel.setText((j + 1) + ".");
+			usernameLabel.setText(uname);
+			pointsLabel.setText(String.valueOf(r.getPoints()));
+			highScorePane.getColumnConstraints().add(new ColumnConstraints(15));
+			highScorePane.add(placeLabel, 0, j + 13);
+			highScorePane.getColumnConstraints().add(new ColumnConstraints(150));
+			highScorePane.add(usernameLabel, 1, j + 13);
+			highScorePane.getColumnConstraints().add(new ColumnConstraints(50));
+			highScorePane.add(pointsLabel, 2, j + 13);
+			j++;
+		}
+		
+		
 		return highScorePane;
 	}
 
 }
+ 

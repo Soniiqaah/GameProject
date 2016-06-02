@@ -9,6 +9,9 @@ import javafx.application.Application;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
@@ -46,10 +49,6 @@ public class GameStage { // TODO ta bort extends Application
 	private InfoPane infoPane;
 	private int resultsExpected = 0;
 	private int ballsToBePlayed = 0;
-	private UserAccount user = new UserAccount("janni", null); // TODO Hard
-																// wired
-	private GameLevel gameLevel = new GameLevel(5); // TODO Hard wired for
-													// testing purposes
 
 	/**
 	 * TODO
@@ -59,10 +58,8 @@ public class GameStage { // TODO ta bort extends Application
 	public GameStage (Stage primaryStage) {
 
 		BorderPane pane = new BorderPane();
-		Scene scene = new Scene(pane, 880, 650);
-		Label topLabel = new Label("Plats f�r menyer"); // Dummykod
+		Scene scene = new Scene(pane, 840, 600);
 		infoPane = new InfoPane(this);
-		pane.setTop(topLabel);
 		pane.setRight(infoPane);
 		pane.setBottom(bottomPane);
 		pane.setLeft(playingField);
@@ -71,6 +68,20 @@ public class GameStage { // TODO ta bort extends Application
 		startXCoord = playingFieldWidth / 2; // startcoordinates of the ball
 		startYCoord = playingFieldHeight - ballRadius;
 
+		MenuBar menuBar = new MenuBar();
+		Menu fileMenu = new Menu("Close program");
+		MenuItem exitItem = new MenuItem("Close");
+		fileMenu.getItems().add(exitItem);
+		Menu fileHelp = new Menu("Help");
+		MenuItem rulesItem = new MenuItem("Rules of the Game");
+		fileHelp.getItems().addAll(rulesItem);
+		menuBar.getMenus().addAll(fileMenu, fileHelp);
+		pane.setTop(menuBar);
+
+		
+		
+		
+		
 		/**
 		 * MouseEvent.MOUSE_CLICKED
 		 * 
@@ -170,7 +181,7 @@ public class GameStage { // TODO ta bort extends Application
 		infoPane.setBallPoints(ballPoints);
 		if (resultsExpected == 0 && ballsLeftToPlay == 0) {
 			int level = ballsToBePlayed;
-			// saveResultToDB(sumOfBalls, level); TODO to be used when connection with the database works
+			saveResultToDB(sumOfBalls, level);
 			infoPane.WriteResults();
 		}
 	}
@@ -184,11 +195,10 @@ public class GameStage { // TODO ta bort extends Application
 	 * @param sumPoints - an int, the sum of points in a game
 	 * @param level - an int, the number of balls to be used in a game
 	 */
-	// public void saveResultToDB(int sumPoints, int level) {
-	// UserAccount user = InlogView.getCurrentUser();
-	// GetNSetDb gsdb = new GetNSetDb();
-	// // gsdb.setResult(user, sumPoints, level); TODO Hard wired...
-	// gsdb.setResult(user, sumPoints, gameLevel);
-	// }
+	public void saveResultToDB(int sumPoints, int level) {
+		UserAccount user = InlogView.getCurrentUser();
+		GetNSetDb gsdb = new GetNSetDb();
+		gsdb.setResult(user, sumPoints, level);
+	}
 
 }

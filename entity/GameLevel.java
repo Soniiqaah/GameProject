@@ -28,7 +28,6 @@ public class GameLevel {
 	private int numOfTryOuts;
 
 	public GameLevel() {
-
 	}
 
 	/**
@@ -37,7 +36,6 @@ public class GameLevel {
 	 */
 	public GameLevel(int numOfTryOuts) {
 		this.numOfTryOuts = numOfTryOuts;
-
 	}
 
 	/**

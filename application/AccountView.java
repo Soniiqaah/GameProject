@@ -66,16 +66,13 @@ public class AccountView {
 		fileMenu.getItems().addAll(exitItem);
 
 		Menu fileHelp = new Menu("Help");
-		MenuItem rulesItem = new MenuItem("Game rules");
-		
-		Menu fileLogout = new Menu("Log out");
-		
-
+		MenuItem rulesItem = new MenuItem("How to play");
+	
 		fileHelp.getItems().addAll(rulesItem);
 /**
  * Setting the menu at the top
  */
-		menuBar.getMenus().addAll(fileMenu, fileHelp,fileLogout);
+		menuBar.getMenus().addAll(fileMenu, fileHelp);
 		layout.setTop(menuBar);
 /**
  * Creating labels and setting the position

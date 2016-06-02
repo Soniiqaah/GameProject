@@ -65,7 +65,7 @@ public class InlogView extends Application {
 		fileMenu.getItems().add(exitItem);
 
 		Menu fileHelp = new Menu("Help");
-		MenuItem rulesItem = new MenuItem("Rules of the Game");
+		MenuItem rulesItem = new MenuItem("How to play");
 
 		fileHelp.getItems().addAll(rulesItem);
 
@@ -115,6 +115,7 @@ public class InlogView extends Application {
 		 */
 		center.setTopAnchor(wrongLogin, 130.0);
 		center.setLeftAnchor(wrongLogin, 10.0);
+		wrongLogin.setStyle("-fx-color: red");
 		
 		/**
 		 * Creating an event that is checking if loginuser is available and

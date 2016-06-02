@@ -31,7 +31,8 @@ public class GetNSetDb {
 	}
 
 	public List<UserAccount> getAccounts() {
-		List<UserAccount> allAccounts = em.createQuery("Select a from UserAccount a").getResultList();
+		List<UserAccount> allAccounts = em.createQuery("Select a from UserAccount a")
+				.getResultList();
 		return allAccounts;
 	}
 
@@ -58,30 +59,34 @@ public class GetNSetDb {
 		return allResults;
 	}
 
-	public List<Result> getSortedResults(int level) {
+	public List<Result> getSortedResults(int level, int numOfResults) {
 		List<Result> sortedResults = em
-				.createQuery("Select r from Result r where r.gamelevel.numOfTryOuts = :level order by r.points desc")
-				.setParameter("level", level).setMaxResults(10).getResultList();
+				.createQuery(
+						"Select r from Result r where r.gamelevel.numOfTryOuts = :level order by r.points desc")
+				.setParameter("level", level).setMaxResults(numOfResults).getResultList();
 		return sortedResults;
 	}
-	
+
 	public List<Result> getUnlimitedSortedResults(int level) {
 		List<Result> sortedUnlimitedResults = em
-				.createQuery("Select r from Result r where r.gamelevel.numOfTryOuts = :level order by r.points desc")
+				.createQuery(
+						"Select r from Result r where r.gamelevel.numOfTryOuts = :level order by r.points desc")
 				.setParameter("level", level).getResultList();
 		return sortedUnlimitedResults;
 	}
 
 	public List<Result> getSortedResultsOneUser(String username, int level) {
-		System.out.println(" \n\n\n\n\n username sorted: "+ username);
 		List<Result> sortedResultsOneUser = em
-				.createQuery("Select r from Result r where r.gamelevel.numOfTryOuts = :level and r.account.username = :uname order by r.points desc")
-				.setParameter("level", level).setParameter("uname", username).setMaxResults(10).getResultList();
+				.createQuery(
+						"Select r from Result r where r.gamelevel.numOfTryOuts = :level and r.account.username = :uname order by r.points desc")
+				.setParameter("level", level).setParameter("uname", username).setMaxResults(8)
+				.getResultList();
 		return sortedResultsOneUser;
 	}
 
 	public GameLevel getGameLevel(int level) {
-		GameLevel gameLevel = (GameLevel) em.createQuery("Select g from GameLevel g where g.numOfTryOuts = :level")
+		GameLevel gameLevel = (GameLevel) em
+				.createQuery("Select g from GameLevel g where g.numOfTryOuts = :level")
 				.setParameter("level", level).getSingleResult();
 		return gameLevel;
 	}

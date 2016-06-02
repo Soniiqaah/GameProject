@@ -14,6 +14,7 @@ import javafx.geometry.HPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -34,15 +35,37 @@ import javafx.scene.text.Text;
 public class InfoPane extends GridPane {
 
 	private ComboBox<String> optionsCBox;
-	private int numOfBallsToBePlayed;
+	private int numOfBallsToBePlayed = 0;
 	private GameStage gameStage;
 	private int latestPoints;
 	private int sumOfBallPoints = 0;
 	private Label resultOutPut = new Label();
 	private GridPane highScorePane;
+	private String howToPlayTxt = "Start the game by choosing the number of balls \n"
+			+ "to be played and press OK. The chosen amount \n"
+			+ "of balls will then be showed below the \n"
+			+ "playingfield as a visual feedback. \n\n"
+			+ "The colours of the zones represents the number \n"
+			+ "of points you get when a ball stops in it and \n"
+			+ "the mapping between colour and points is showed \n"
+			+ "to the right of the playingfield. When the ball \n"
+			+ "stops in a zone, the colour of the ball changes \n" + "into blue. \n\n "
+			+ "The start position of the ball is at the black \n"
+			+ "pointer in the bottom of the playingfield. To \n"
+			+ "play a ball you click in the playingfield. The \n"
+			+ "direction of the ball is decided by where you \n"
+			+ "click and the distance between the coordinates \n"
+			+ "on which you clicked and the start pointer sets \n" + "the speed of the ball. \n\n"
+			+ "When a ball is played the number of balls in the \n"
+			+ "visual feedback is decremented.\n\n"
+			+ "When all balls are played the result is displayed \n" + "to the right.";
+	private TextArea howToPlay = new TextArea(howToPlayTxt);
+	private Button hideHowToPlay = new Button("Close");
 
 	/**
 	 * Constructor
+	 * 
+	 * Components are added to a Gridpane
 	 * 
 	 * @param gameStage
 	 */
@@ -52,13 +75,13 @@ public class InfoPane extends GridPane {
 		GetNSetDb gsdb = new GetNSetDb();
 		List<GameLevel> gameLevels = gsdb.getGameLevels();
 		// The gamelevels are set if the database is empty
-		if (gameLevels.isEmpty()) { 
+		if (gameLevels.isEmpty()) {
 			gsdb.setGameLevels(new int[] { 3, 5, 7 });
 			gameLevels = gsdb.getGameLevels();
 		}
 
 		optionsCBox = new ComboBox<String>();
-		Text title = new Text("Skeeball");
+		Text title = new Text("Skee Ball");
 		Text introQuestion = new Text("How many balls do you want to play?");
 		Button numOfBallsDecided = new Button("OK");
 		GridPane pointsColorGrid = new GridPane();
@@ -71,7 +94,7 @@ public class InfoPane extends GridPane {
 		setHalignment(title, HPos.CENTER);
 		introQuestion.setFont(Font.font("Arial", 14));
 		add(introQuestion, 0, 2, 5, 1);
-		for (GameLevel gameLevel : gameLevels) { 
+		for (GameLevel gameLevel : gameLevels) {
 			optionsCBox.getItems().add("" + gameLevel.getNumOfTryOuts());
 		}
 		add(optionsCBox, 6, 2, 2, 1);
@@ -81,6 +104,11 @@ public class InfoPane extends GridPane {
 
 		add(resultOutPut, 0, 9, 6, 1);
 
+		add(howToPlay, 0, 10, 8, 1);
+		howToPlay.setVisible(false);
+		add(hideHowToPlay, 7, 11, 1, 1);
+		hideHowToPlay.setVisible(false);
+
 		numOfBallsDecided.setOnAction(event -> {
 			numOfBallsToBePlayed = getNumOfBallsToBePlayed();
 			gameStage.setBallsLeftToPlay(numOfBallsToBePlayed);
@@ -88,10 +116,21 @@ public class InfoPane extends GridPane {
 			resultOutPut.setText("");
 			updateHighScoreList();
 		});
+
+		hideHowToPlay.setOnAction(event -> {
+			if (numOfBallsToBePlayed != 0) {
+				highScorePane.setVisible(true);
+			}
+			howToPlay.setVisible(false);
+			hideHowToPlay.setVisible(false);
+		});
 	}
-/**
- * TODO
- */
+
+	/**
+	 * updateHighScoreList()
+	 * 
+	 * Removes the old highscore list and replaces it with a new one
+	 */
 	private void updateHighScoreList() {
 		getChildren().remove(highScorePane);
 		highScorePane = getHighscoreLists(numOfBallsToBePlayed);
@@ -194,7 +233,8 @@ public class InfoPane extends GridPane {
 	/**
 	 * WriteResults()
 	 * 
-	 * When the game is finished the result is displayed and the highscore list is updated
+	 * When the game is finished the result is displayed and the highscore list
+	 * is updated
 	 * 
 	 */
 	public void WriteResults() {
@@ -215,13 +255,13 @@ public class InfoPane extends GridPane {
 	 */
 	private GridPane getHighscoreLists(int level) {
 		String uname = InlogView.getCurrentUser().getUser();
-		System.out.println("\n\n\n\n uname: "+ uname);
 		GetNSetDb gsdb = new GetNSetDb();
 		GridPane highScorePane = new GridPane();
-		List<Result> levelResults = gsdb.getSortedResults(level);
+		int maxNumOfResults = 8;
+		List<Result> levelResults = gsdb.getSortedResults(level, maxNumOfResults);
 		List<Result> oneUserLevelResults = gsdb.getSortedResultsOneUser(uname, level);
-		Label highscoreHeadline = new Label("Top 10, " + level + " balls");
-		Label highscoreHeadlineOneUser = new Label("Your top 10 results, " + level + " balls");
+		Label highscoreHeadline = new Label("Top 8, " + level + " balls");
+		Label highscoreHeadlineOneUser = new Label("Your top 8 results, " + level + " balls");
 		highscoreHeadline.setFont((Font.font("Arial", FontWeight.BOLD, 14)));
 		highscoreHeadlineOneUser.setFont((Font.font("Arial", FontWeight.BOLD, 14)));
 		int i = 0;
@@ -242,7 +282,7 @@ public class InfoPane extends GridPane {
 			i++;
 		}
 		int j = 0;
-		highScorePane.add(highscoreHeadlineOneUser, 0, 12, 3, 1);
+		highScorePane.add(highscoreHeadlineOneUser, 0, 13, 3, 1);
 		for (Result r : oneUserLevelResults) {
 			Label placeLabel = new Label();
 			Label usernameLabel = new Label();
@@ -251,17 +291,28 @@ public class InfoPane extends GridPane {
 			usernameLabel.setText(uname);
 			pointsLabel.setText(String.valueOf(r.getPoints()));
 			highScorePane.getColumnConstraints().add(new ColumnConstraints(15));
-			highScorePane.add(placeLabel, 0, j + 13);
+			highScorePane.add(placeLabel, 0, j + 14);
 			highScorePane.getColumnConstraints().add(new ColumnConstraints(150));
-			highScorePane.add(usernameLabel, 1, j + 13);
+			highScorePane.add(usernameLabel, 1, j + 14);
 			highScorePane.getColumnConstraints().add(new ColumnConstraints(50));
-			highScorePane.add(pointsLabel, 2, j + 13);
+			highScorePane.add(pointsLabel, 2, j + 14);
 			j++;
 		}
-		
-		
 		return highScorePane;
 	}
 
+	/**
+	 * displayHowToPlay()
+	 * 
+	 * If there exists a highscore board it is set to not visible, displays the
+	 * instruction on how to play the game
+	 */
+	public void displayHowToPlay() {
+		if (numOfBallsToBePlayed != 0) {
+			highScorePane.setVisible(false);
+		}
+		howToPlay.setVisible(true);
+		hideHowToPlay.setVisible(true);
+	}
+
 }
- 

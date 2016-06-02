@@ -6,6 +6,7 @@ import connectivity.GetNSetDb;
 import entity.GameLevel;
 import entity.UserAccount;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -28,7 +30,7 @@ import javafx.stage.Stage;
  *         visual feedback of how many balls taht are left to play
  *
  */
-public class GameStage { // TODO ta bort extends Application
+public class GameStage {
 	public static final int FRAME_RATE = 100; // Used to calculate the speed of
 												// the ball and in Ball to
 												// animate
@@ -51,14 +53,12 @@ public class GameStage { // TODO ta bort extends Application
 	private int ballsToBePlayed = 0;
 
 	/**
-	 * TODO
-	 * 
 	 * The different parts of the game are put together
 	 */
-	public GameStage (Stage primaryStage) {
-
+	public GameStage(Stage primaryStage) {
+		Scene loginScene = primaryStage.getScene();
 		BorderPane pane = new BorderPane();
-		Scene scene = new Scene(pane, 840, 600);
+		Scene scene = new Scene(pane, 840, 650);
 		infoPane = new InfoPane(this);
 		pane.setRight(infoPane);
 		pane.setBottom(bottomPane);
@@ -69,19 +69,32 @@ public class GameStage { // TODO ta bort extends Application
 		startYCoord = playingFieldHeight - ballRadius;
 
 		MenuBar menuBar = new MenuBar();
-		Menu fileMenu = new Menu("Close program");
-		MenuItem exitItem = new MenuItem("Close");
+		Menu fileMenu = new Menu("Log out");
+		MenuItem exitItem = new MenuItem("Log out");
 		fileMenu.getItems().add(exitItem);
-		Menu fileHelp = new Menu("Help");
-		MenuItem rulesItem = new MenuItem("Rules of the Game");
+		Menu fileHelp = new Menu("How to play");
+		MenuItem rulesItem = new MenuItem("How to play");
 		fileHelp.getItems().addAll(rulesItem);
 		menuBar.getMenus().addAll(fileMenu, fileHelp);
 		pane.setTop(menuBar);
 
-		
-		
-		
-		
+		/**
+		 * Display a how to play guide
+		 */
+		rulesItem.setOnAction(event -> {
+			infoPane.displayHowToPlay();
+		});
+
+		/**
+		 * When logging out the program redirects to the login page
+		 * 
+		 * On the login page the user's username and password are visible, that
+		 * could be fixed in a future version of the program
+		 */
+		exitItem.setOnAction(event -> {
+			primaryStage.setScene(loginScene);
+		});
+
 		/**
 		 * MouseEvent.MOUSE_CLICKED
 		 * 
@@ -111,7 +124,7 @@ public class GameStage { // TODO ta bort extends Application
 			ball.animateBallMovement();
 		});
 
-		primaryStage.setTitle("Skeeball");
+		primaryStage.setTitle("Skee Ball");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
@@ -169,11 +182,12 @@ public class GameStage { // TODO ta bort extends Application
 	 * Sends the latest number of points to infopane
 	 * 
 	 * Check if all balls are played and their point accounted for, if so the
-	 * variable used to represent the gamelevel (the number of balls to be used in
-	 * the game is the level) is set and infoPane gets called to write the result. The result
-	 * is also saved to the database.
+	 * variable used to represent the gamelevel (the number of balls to be used
+	 * in the game is the level) is set and infoPane gets called to write the
+	 * result. The result is also saved to the database.
 	 * 
-	 * @param ballPoints - an int, the number of points for one ball 
+	 * @param ballPoints
+	 *            - an int, the number of points for one ball
 	 */
 	public void setBallPoints(int ballPoints) {
 		resultsExpected--;
@@ -187,13 +201,15 @@ public class GameStage { // TODO ta bort extends Application
 	}
 
 	/**
-	 * TODO to be used when connection with the database works
 	 * saveResultToDB(int sumPoints, int level)
 	 * 
-	 * Get the identity of the current player and sets the result and gamelevel for the game in the database
+	 * Get the identity of the current player and sets the result and gamelevel
+	 * for the game in the database
 	 * 
-	 * @param sumPoints - an int, the sum of points in a game
-	 * @param level - an int, the number of balls to be used in a game
+	 * @param sumPoints
+	 *            - an int, the sum of points in a game
+	 * @param level
+	 *            - an int, the number of balls to be used in a game
 	 */
 	public void saveResultToDB(int sumPoints, int level) {
 		UserAccount user = InlogView.getCurrentUser();
